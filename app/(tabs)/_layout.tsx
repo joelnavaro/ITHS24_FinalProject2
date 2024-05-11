@@ -1,85 +1,85 @@
 import React, { useState } from "react";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Link, Redirect, Tabs } from "expo-router";
-import { Pressable, useColorScheme } from "react-native";
+import { Redirect, Tabs } from "expo-router";
+import { useColorScheme } from "react-native";
 import { Colors } from "@/constants/Colors";
-
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-// function TabBarIcon(props: { name: React.ComponentProps<typeof FontAwesome>['name']; color: string }) {
-//   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />
-// }
+import { IconEnum } from "@/components/icons/Icons";
+import { HeaderLeft } from "@/components/HeaderLeft";
+import { TabBarIcon } from "@/components/TabBarIcon";
+import { HeaderRight } from "@/components/HeaderRight";
+import { defaultTabNavigationOptions } from "../../utils/navigationUtils";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
-  const [permission, setPermission] = useState(false);
+  const [permission, setPermission] = useState(true);
 
   if (!permission) {
     return <Redirect href="/(auth)/signin" />;
   }
 
-  //haver una navegacion en el tab comun
   return (
     <Tabs
-      screenOptions={{
+      screenOptions={({ route }) => ({
+        ...defaultTabNavigationOptions,
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-      }}
+        title: getTabHeaderTitle(route.name),
+        tabBarIcon: ({ color, focused, size }) => (
+          <TabBarIcon
+            icon={getTabIconName(route.name)}
+            color={color}
+            size={size}
+            focused={focused}
+          />
+        ),
+        headerShown: false,
+        // headerLeft: () => <HeaderLeft route="home" />,
+        // headerRight: () => <HeaderRight route="home" />,
+      })}
     >
-      {/* The tab header might be false cause we will navin the children stack */}
       <Tabs.Screen
         name="(home)"
-        options={{
-          title: "Home",
-          // tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-          headerShown: false,
-          // headerLeft: () => (<HeaderLeft route="home" />),
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="chevron-left"
-                    size={25}
-                    color={Colors[colorScheme ?? "light"].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
-        }}
+        // options={{
+        //   title: "Home",
+        // }}
       />
       <Tabs.Screen
-        name="(maps)"
-        options={{
-          title: "Maps",
-          // tabBarIcon: ({ color }) => <TabBarIcon name="map" color={color} />,
-        }}
+        name="(search)"
       />
       <Tabs.Screen
         name="(profile)"
-        options={{
-          title: "Profile",
-          // tabBarIcon: ({ color }) => <TabBarIcon name="github" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? "light"].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
-        }}
+      />
+      <Tabs.Screen
+        name="(library)"
       />
     </Tabs>
   );
 }
+
+const getTabHeaderTitle = (route: string) => {
+  switch (route) {
+    case "(library)":
+      return "Library";
+    case "(search)":
+      return "Search";
+    case "(profile)":
+      return "Profile";
+    default:
+      return "Home";
+  }
+};
+
+const getTabIconName = (route: string) => {
+  switch (route) {
+    case "(search)":
+      return IconEnum.search;
+    case "(profile)":
+      return IconEnum.account;
+    case "(library)":
+      return IconEnum.list;
+    default:
+      return IconEnum.home;
+  }
+};
 
 // options={{
 //   title: 'Home',

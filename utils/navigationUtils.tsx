@@ -2,8 +2,19 @@ import { router } from 'expo-router'
 import { color } from '../theme/color'
 import { fontFamily, fontSize } from '../theme/font'
 import { Keyboard } from 'react-native'
+import { Colors } from '@/constants/Colors'
 
 export const defaultNavigationOptions = {
+  headerStyle: {
+    backgroundColor: color.darkSlate,
+  },
+  headerTitleStyle: {
+    fontFamily: fontFamily.regular,
+    fontSize: fontSize.default,
+    color: color.white,
+  },
+}
+export const defaultTabNavigationOptions = {
   headerStyle: {
     backgroundColor: color.primary,
   },
