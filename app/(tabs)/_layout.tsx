@@ -1,37 +1,101 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import React, { useState } from "react";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Link, Redirect, Tabs } from "expo-router";
+import { Pressable, useColorScheme } from "react-native";
+import { Colors } from "@/constants/Colors";
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
+// function TabBarIcon(props: { name: React.ComponentProps<typeof FontAwesome>['name']; color: string }) {
+//   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />
+// }
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
+  const [permission, setPermission] = useState(false);
+
+  if (!permission) {
+    return <Redirect href="/(auth)/signin" />;
+  }
+
+  //haver una navegacion en el tab comun
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
+        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+      }}
+    >
+      {/* The tab header might be false cause we will navin the children stack */}
       <Tabs.Screen
-        name="index"
+        name="(home)"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+          title: "Home",
+          // tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          headerShown: false,
+          // headerLeft: () => (<HeaderLeft route="home" />),
+          headerRight: () => (
+            <Link href="/modal" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome
+                    name="chevron-left"
+                    size={25}
+                    color={Colors[colorScheme ?? "light"].text}
+                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                  />
+                )}
+              </Pressable>
+            </Link>
           ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="(maps)"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+          title: "Maps",
+          // tabBarIcon: ({ color }) => <TabBarIcon name="map" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="(profile)"
+        options={{
+          title: "Profile",
+          // tabBarIcon: ({ color }) => <TabBarIcon name="github" color={color} />,
+          headerRight: () => (
+            <Link href="/modal" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome
+                    name="info-circle"
+                    size={25}
+                    color={Colors[colorScheme ?? "light"].text}
+                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                  />
+                )}
+              </Pressable>
+            </Link>
           ),
         }}
       />
     </Tabs>
   );
 }
+
+// options={{
+//   title: 'Home',
+//   tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+//   headerRight: () => (
+//     <Link href="/modal" asChild>
+//       <Pressable>
+//         {({ pressed }) => (
+//           <FontAwesome
+//             name="info-circle"
+//             size={25}
+//             color={Colors[colorScheme ?? 'light'].text}
+//             style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+//           />
+//         )}
+//       </Pressable>
+//     </Link>
+//   ),
+// }}
