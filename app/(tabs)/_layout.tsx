@@ -1,37 +1,44 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import React, { useState } from "react";
+import { Redirect, Tabs } from "expo-router";
+import { TabBarIcon } from "@/components/TabBarIcon";
+import {
+  defaultTabNavigationOptions,
+  getTabHeaderTitle,
+  getTabIconName,
+} from "../../utils/navigationUtils";
+import { color } from "@/theme/color";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const [permission, setPermission] = useState(false);
+
+  if (!permission) {
+    return <Redirect href="/(auth)/signin" />;
+  }
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
+    <SafeAreaProvider>
+      <SafeAreaView style={{ flex: 1 }} edges={["right", "top", "left"]}>
+        <Tabs
+          screenOptions={({ route }) => ({
+            ...defaultTabNavigationOptions,
+            title: getTabHeaderTitle(route.name),
+            tabBarIcon: ({ focused, size }) => (
+              <TabBarIcon
+                icon={getTabIconName(route.name)}
+                color={focused ? color.warning : color.white}
+                size={size}
+                focused={focused}
+              />
+            ),
+          })}
+        >
+          <Tabs.Screen name="(home)" />
+          <Tabs.Screen name="(search)" />
+          <Tabs.Screen name="(profile)" />
+          <Tabs.Screen name="(library)" />
+        </Tabs>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
