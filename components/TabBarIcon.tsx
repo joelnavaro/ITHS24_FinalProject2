@@ -7,12 +7,12 @@ export const TabBarIcon: FC<{
   focused: boolean;
   color: string;
   size: number;
-}> = ({ icon, color = "black", size, focused }) => {
+}> = ({ icon, color, size, focused }) => {
   return (
     <Container>
       <Icon
         icon={icon}
-        color={focused ? color : "black"}
+        color={focused ? color : 'white'}
         width={size}
         height={size}
       />

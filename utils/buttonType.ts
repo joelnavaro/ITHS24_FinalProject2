@@ -12,9 +12,9 @@ export const buttonTypes = (type: ButtonType) => {
   }
   if (type === ButtonType.success) {
     return {
-      backgroundColor: color.success,
-      fontColor: color.darkSlate,
-      borderColor: color.darkSlate,
+      backgroundColor: color.fernGreen,
+      fontColor: color.white,
+      borderColor: color.fernGreen,
       borderBottomWidth: false,
     }
   }

@@ -7,8 +7,8 @@ export const ScreenBase = styled.View`
   background-color: ${color.white};
   padding: ${spacing.medium}px;
 `
-export const Container = styled.View<{direction?: boolean, wrap?: boolean}>`
-flex-direction: ${(props: { direction: boolean }) => (props.direction ? 'row' : 'column')};
+export const Container = styled.View<{row?: boolean, wrap?: boolean}>`
+flex-direction: ${(props: { row: boolean }) => (props.row ? 'row' : 'column')};
 flex-wrap: ${(props: { wrap: boolean }) => (props.wrap ? 'wrap' : 'nowrap')};
 `
 export const SpaceEvenly = styled.View<{ transparent?: boolean }>`
