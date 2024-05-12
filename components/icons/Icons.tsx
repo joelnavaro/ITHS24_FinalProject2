@@ -65,35 +65,68 @@ interface IconInterface {
   color?: string
 }
 
-export const Icon = ({ icon, width = 24, height = 24, color }: IconInterface) => {
-  if (icon === IconEnum.plus) return <Plus width={width} height={height} color={color} />
-  if (icon === IconEnum.minus) return <Minus width={width} height={height} color={color} />
-  if (icon === IconEnum.account) return <Account width={width} height={height} color={color} />
-  if (icon === IconEnum.alert) return <Alert width={width} height={height} color={color} />
-  if (icon === IconEnum.attatchment) return <Attatchment width={width} height={height} color={color} />
-  if (icon === IconEnum.bell) return <Bell width={width} height={height} color={color} />
-  if (icon === IconEnum.bin) return <Bin width={width} height={height} color={color} />
-  if (icon === IconEnum.calendar) return <Calendar width={width} height={height} color={color} />
-  if (icon === IconEnum.camera) return <Camera width={width} height={height} color={color} />
-  if (icon === IconEnum.check) return <Check width={width} height={height} color={color} />
-  if (icon === IconEnum.chevron) return <Chevron width={width} height={height} color={color} />
-  if (icon === IconEnum.close) return <Close width={width} height={height} color={color} />
-  if (icon === IconEnum.disc) return <Disc width={width} height={height} color={color} />
-  if (icon === IconEnum.dots) return <Dots width={width} height={height} color={color} />
-  if (icon === IconEnum.home) return <Home width={width} height={height} color={color} />
-  if (icon === IconEnum.image) return <Image width={width} height={height} color={color} />
-  if (icon === IconEnum.images) return <Images width={width} height={height} color={color} />
-  if (icon === IconEnum.landmark) return <Landmark width={width} height={height} color={color} />
-  if (icon === IconEnum.landmarks) return <Landmarks width={width} height={height} color={color} />
-  if (icon === IconEnum.list) return <List width={width} height={height} color={color} />
-  if (icon === IconEnum.retry) return <Retry width={width} height={height} color={color} />
-  if (icon === IconEnum.scan) return <Scan width={width} height={height} color={color} />
-  if (icon === IconEnum.scanText) return <ScanText width={width} height={height} color={color} />
-  if (icon === IconEnum.search) return <Search width={width} height={height} color={color} />
-  if (icon === IconEnum.searchWeb) return <SearchWeb width={width} height={height} color={color} />
-  if (icon === IconEnum.star) return <Star width={width} height={height} color={color} />
-  if (icon === IconEnum.unfold) return <Unfold width={width} height={height} color={color} />
-  if (icon === IconEnum.bracket) return <Bracket width={width} height={height} color={color} />
+export const Icon = ({
+  icon,
+  width = 24,
+  height = 24,
+  color,
+}: IconInterface) => {
+  if (icon === IconEnum.plus)
+    return <Plus width={width} height={height} color={color} />
+  if (icon === IconEnum.minus)
+    return <Minus width={width} height={height} color={color} />
+  if (icon === IconEnum.account)
+    return <Account width={width} height={height} color={color} />
+  if (icon === IconEnum.alert)
+    return <Alert width={width} height={height} color={color} />
+  if (icon === IconEnum.attatchment)
+    return <Attatchment width={width} height={height} color={color} />
+  if (icon === IconEnum.bell)
+    return <Bell width={width} height={height} color={color} />
+  if (icon === IconEnum.bin)
+    return <Bin width={width} height={height} color={color} />
+  if (icon === IconEnum.calendar)
+    return <Calendar width={width} height={height} color={color} />
+  if (icon === IconEnum.camera)
+    return <Camera width={width} height={height} color={color} />
+  if (icon === IconEnum.check)
+    return <Check width={width} height={height} color={color} />
+  if (icon === IconEnum.chevron)
+    return <Chevron width={width} height={height} color={color} />
+  if (icon === IconEnum.close)
+    return <Close width={width} height={height} color={color} />
+  if (icon === IconEnum.disc)
+    return <Disc width={width} height={height} color={color} />
+  if (icon === IconEnum.dots)
+    return <Dots width={width} height={height} color={color} />
+  if (icon === IconEnum.home)
+    return <Home width={width} height={height} color={color} />
+  if (icon === IconEnum.image)
+    return <Image width={width} height={height} color={color} />
+  if (icon === IconEnum.images)
+    return <Images width={width} height={height} color={color} />
+  if (icon === IconEnum.landmark)
+    return <Landmark width={width} height={height} color={color} />
+  if (icon === IconEnum.landmarks)
+    return <Landmarks width={width} height={height} color={color} />
+  if (icon === IconEnum.list)
+    return <List width={width} height={height} color={color} />
+  if (icon === IconEnum.retry)
+    return <Retry width={width} height={height} color={color} />
+  if (icon === IconEnum.scan)
+    return <Scan width={width} height={height} color={color} />
+  if (icon === IconEnum.scanText)
+    return <ScanText width={width} height={height} color={color} />
+  if (icon === IconEnum.search)
+    return <Search width={width} height={height} color={color} />
+  if (icon === IconEnum.searchWeb)
+    return <SearchWeb width={width} height={height} color={color} />
+  if (icon === IconEnum.star)
+    return <Star width={width} height={height} color={color} />
+  if (icon === IconEnum.unfold)
+    return <Unfold width={width} height={height} color={color} />
+  if (icon === IconEnum.bracket)
+    return <Bracket width={width} height={height} color={color} />
 
   return <Plus width={width} height={height} />
 }

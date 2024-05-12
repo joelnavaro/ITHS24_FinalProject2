@@ -5,8 +5,8 @@ export const buttonTypes = (type: ButtonType) => {
   if (type === ButtonType.secondary) {
     return {
       backgroundColor: color.secondary,
-      fontColor: color.darkSlate,
-      borderColor: color.darkSlate,
+      fontColor: color.white,
+      borderColor: color.secondary,
       borderBottomWidth: false,
     }
   }
@@ -18,14 +18,14 @@ export const buttonTypes = (type: ButtonType) => {
       borderBottomWidth: false,
     }
   }
-  // if (type === ButtonType.disable) {
-  //   return {
-  //     backgroundColor: color.lightGrey,
-  //     fontColor: color.darkGrey,
-  //     borderColor: color.darkGrey,
-  //     borderBottomWidth: false,
-  //   }
-  // }
+  if (type === ButtonType.disable) {
+    return {
+      backgroundColor: color.white,
+      fontColor: color.darkSlate,
+      borderColor: color.darkSlate,
+      borderBottomWidth: false,
+    }
+  }
   if (type === ButtonType.textButton) {
     return {
       backgroundColor: 'transparent',

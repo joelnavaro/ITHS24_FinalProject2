@@ -4,7 +4,10 @@ import { color } from '../theme/color'
 import styled from 'styled-components/native'
 import { BodyText } from './Text'
 
-export const ColorShade: FC<{ name: string; color: string }> = ({ name, color }) => {
+export const ColorShade: FC<{ name: string; color: string }> = ({
+  name,
+  color,
+}) => {
   return (
     <Container>
       <ColorBox background={color} />

@@ -5,7 +5,9 @@ import { Pressable } from 'react-native'
 import { FC } from 'react'
 import { ParamListBase, RouteProp } from '@react-navigation/native'
 
-export const HeaderLeft: FC<{ route: RouteProp<ParamListBase, string> }> = ({ route }) => {
+export const HeaderLeft: FC<{
+  route: RouteProp<ParamListBase, string>
+}> = ({ route }) => {
   return (
     <Pressable
       hitSlop={50}
@@ -16,7 +18,7 @@ export const HeaderLeft: FC<{ route: RouteProp<ParamListBase, string> }> = ({ ro
       <Chevron
         height={24}
         width={24}
-        color={route === undefined ? 'transparent' : color.white}
+        color={!router.canGoBack() ? 'transparent' : color.white}
         style={{ transform: [{ rotate: '-90deg' }] }}
       />
     </Pressable>
