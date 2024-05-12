@@ -1,5 +1,5 @@
-import { color } from "../theme/color";
-import { ButtonType } from "./types";
+import { color } from '../theme/color'
+import { ButtonType } from './types'
 
 export const buttonTypes = (type: ButtonType) => {
   if (type === ButtonType.secondary) {
@@ -8,7 +8,7 @@ export const buttonTypes = (type: ButtonType) => {
       fontColor: color.white,
       borderColor: color.secondary,
       borderBottomWidth: false,
-    };
+    }
   }
   if (type === ButtonType.success) {
     return {
@@ -16,7 +16,7 @@ export const buttonTypes = (type: ButtonType) => {
       fontColor: color.white,
       borderColor: color.fernGreen,
       borderBottomWidth: false,
-    };
+    }
   }
   if (type === ButtonType.disable) {
     return {
@@ -24,15 +24,15 @@ export const buttonTypes = (type: ButtonType) => {
       fontColor: color.darkSlate,
       borderColor: color.darkSlate,
       borderBottomWidth: false,
-    };
+    }
   }
   if (type === ButtonType.textButton) {
     return {
-      backgroundColor: "transparent",
+      backgroundColor: 'transparent',
       fontColor: color.black,
       borderColor: color.black,
       borderBottomWidth: true,
-    };
+    }
   }
   // if (type === ButtonType.complement) {
   //   return {
@@ -47,5 +47,5 @@ export const buttonTypes = (type: ButtonType) => {
     fontColor: color.white,
     borderColor: color.primary,
     borderBottomWidth: false,
-  };
-};
+  }
+}

@@ -1,8 +1,8 @@
-import { Button } from "@/components/Button";
-import { Container, ScreenBase } from "@/components/ScreenBase";
-import { Separator } from "@/components/Separator";
-import { IconEnum } from "@/components/icons/Icons";
-import { ButtonType } from "@/utils/types";
+import { Button } from '@/components/Button'
+import { Container, ScreenBase } from '@/components/ScreenBase'
+import { Separator } from '@/components/Separator'
+import { IconEnum } from '@/components/icons/Icons'
+import { ButtonType } from '@/utils/types'
 
 export default function Buttons() {
   return (
@@ -37,5 +37,5 @@ export default function Buttons() {
         />
       </Container>
     </ScreenBase>
-  );
+  )
 }

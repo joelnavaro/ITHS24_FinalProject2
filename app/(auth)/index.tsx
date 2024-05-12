@@ -49,7 +49,6 @@ const PaddingButton = styled(Button)`
 const Card = styled.View<{ backgroundColor: string }>`
   justify-content: center;
   align-items: center;
-  /* height: 300px; */
   background-color: ${(props: { backgroundColor: string }) =>
     props.backgroundColor ? props.backgroundColor : color.white};
   border-radius: 25px;

@@ -10,6 +10,7 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "doctor": "npx expo-doctor"
   },
   "jest": {
