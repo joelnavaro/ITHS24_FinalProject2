@@ -10,15 +10,18 @@ import { color } from "@/theme/color";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function TabLayout() {
-  const [permission, setPermission] = useState(false);
+  // const [permission, setPermission] = useState(false);
 
-  if (!permission) {
-    return <Redirect href="/(auth)/signin" />;
-  }
+  // if (!permission) {
+  //   return <Redirect href="/(auth)/signin" />;
+  // }
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={{ flex: 1 }} edges={["right", "top", "left"]}>
+      <SafeAreaView
+        style={{ flex: 1, backgroundColor: color.primary }}
+        edges={["right", "top", "left"]}
+      >
         <Tabs
           screenOptions={({ route }) => ({
             ...defaultTabNavigationOptions,

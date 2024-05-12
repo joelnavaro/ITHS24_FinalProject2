@@ -13,7 +13,7 @@ export default function Library() {
           label="Colors"
           type={ButtonType.primary}
           onPress={() => {
-            router.push('colors');
+            router.push("colors");
           }}
         />
         <Separator size={10} />
@@ -22,7 +22,7 @@ export default function Library() {
           label="Buttons"
           type={ButtonType.primary}
           onPress={() => {
-            router.push('buttons');
+            router.push("buttons");
           }}
         />
       </ScrollView>

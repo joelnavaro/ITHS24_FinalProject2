@@ -19,7 +19,6 @@
 // tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
 // tabBarInactiveTintColor: Colors[colorScheme ?? "light"].tabIconDefault,
 
-
 // options={{
 //   title: 'Home',
 //   tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,

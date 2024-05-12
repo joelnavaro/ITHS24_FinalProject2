@@ -2,7 +2,7 @@ import { router } from "expo-router";
 import { color } from "../theme/color";
 import { fontFamily, fontSize } from "../theme/font";
 import { Keyboard } from "react-native";
-import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
+import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
 import { IconEnum } from "@/components/icons/Icons";
 
 export const defaultNavigationOptions = {

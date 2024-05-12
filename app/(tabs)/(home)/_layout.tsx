@@ -6,7 +6,7 @@ export default function _layout() {
     <Stack
       screenOptions={({ route }) => ({
         ...defaultNavigationOptions,
-        title: 'Home',
+        title: "Home",
       })}
     />
   );

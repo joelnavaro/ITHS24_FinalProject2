@@ -1,14 +1,17 @@
-import React, { FC } from 'react'
-import { color } from '../theme/color'
-import { Account } from './icons/Account'
-import { Pressable } from 'react-native'
-import { router } from 'expo-router'
-import { ParamListBase, RouteProp } from '@react-navigation/native'
+import React, { FC } from "react";
+import { Pressable } from "react-native";
+import { ParamListBase, RouteProp } from "@react-navigation/native";
+import { Icon, IconEnum } from "./icons/Icons";
 
-export const HeaderRight: FC<{ route: RouteProp<ParamListBase, string> }> = () => {
+export const HeaderRight: FC<{
+  icon: IconEnum;
+  color: string;
+  route: RouteProp<ParamListBase, string>;
+  onPress: () => void;
+}> = ({ icon, color, onPress }) => {
   return (
-    <Pressable onPress={() => router.push('/profile')}>
-      <Account height={24} width={24} color={color.white} />
+    <Pressable onPress={onPress}>
+      <Icon icon={icon} height={24} width={24} color={color} />
     </Pressable>
-  )
-}
+  );
+};

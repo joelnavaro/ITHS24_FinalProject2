@@ -1,7 +1,9 @@
-import { Stack } from "expo-router";
+import { Stack, router } from "expo-router";
 import { defaultNavigationOptions } from "../../../utils/navigationUtils";
 import { HeaderLeft } from "@/components/HeaderLeft";
 import { HeaderRight } from "@/components/HeaderRight";
+import { IconEnum } from "@/components/icons/Icons";
+import { color } from "@/theme/color";
 
 export default function _layout() {
   return (
@@ -10,7 +12,16 @@ export default function _layout() {
         ...defaultNavigationOptions,
         title: "Library",
         headerLeft: () => <HeaderLeft route={route} />,
-        headerRight: () => <HeaderRight route={route} />,
+        headerRight: () => (
+          <HeaderRight
+            route={route}
+            icon={IconEnum.alert}
+            color={color.warning}
+            onPress={() => {
+              router.push("(auth)/");
+            }}
+          />
+        ),
       })}
     />
   );

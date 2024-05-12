@@ -1,8 +1,13 @@
-import * as React from 'react'
-import Svg, { Path, Defs, G, ClipPath, Rect } from 'react-native-svg'
-import { IconInterface } from './types'
+import * as React from "react";
+import Svg, { Path, Defs, G, ClipPath, Rect } from "react-native-svg";
+import { IconInterface } from "./types";
 
-export const Scan = ({ height, width, color = '#000', props }: IconInterface) => (
+export const Scan = ({
+  height,
+  width,
+  color = "#000",
+  props,
+}: IconInterface) => (
   <Svg width={width} height={height} fill="none" {...props}>
     <G clipPath="url(#clip0_494_796)">
       <Path
@@ -16,4 +21,4 @@ export const Scan = ({ height, width, color = '#000', props }: IconInterface) =>
       </ClipPath>
     </Defs>
   </Svg>
-)
+);

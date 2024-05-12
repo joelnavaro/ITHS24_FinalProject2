@@ -28,6 +28,13 @@ export default function Buttons() {
           onPress={() => {}}
           icon={IconEnum.star}
         />
+        <Separator size={10} />
+
+        <Button
+          label="Disabled Button"
+          type={ButtonType.disable}
+          onPress={() => {}}
+        />
       </Container>
     </ScreenBase>
   );
