@@ -30,7 +30,7 @@ export const InputField: FC<InputFieldProps> = ({
   const [isFocused, setIsFocused] = useState<boolean>(false)
   return (
     <View>
-      {label && <BodyText bold>{label}</BodyText>}
+      {label && <PaddingText bold>{label}</PaddingText>}
       <InputContainer error={!!error}>
         <StyledInput
           value={value}
@@ -69,11 +69,18 @@ const InputContainer = styled.View<{ hasValue: boolean; error: boolean }>`
   border: 1px solid
     ${(props: { error: boolean }) =>
       props.error ? color.error : color.darkSlate};
-  border-radius: 5px;
-  padding: ${spacing.medium}px;
+  border-radius: ${spacing.medium}px;
+  padding: ${spacing.xsmall}px ${spacing.medium}px;
   margin-top: ${spacing.xsmall}px;
   margin-bottom: ${spacing.small}px;
 `
+
+const PaddingText = styled(BodyText)`
+  margin-left: ${spacing.small}px;
+`
 const StyledInput = styled.TextInput`
   flex-grow: 1;
+  background-color: 'red';
+  height: 40px;
+  /* border: 2px solid black; */
 `

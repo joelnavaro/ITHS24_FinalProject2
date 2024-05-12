@@ -26,5 +26,3 @@ export const ScrollContainer = styled.ScrollView<{ backgroundColor?: string }>`
     props.backgroundColor ? props.backgroundColor : color.white};
   margin-top: ${spacing.small}px;
 `
-
-const BaseCard = styled.View``

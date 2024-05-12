@@ -18,7 +18,7 @@ export const BodyText = styled.Text<{
     props.size ? props.size : theme.fontSize.default}px;
   font-weight: ${(props: { bold?: boolean }) => (props.bold ? 'bold' : '400')};
   margin-bottom: ${(props: { bold?: boolean }) =>
-    props.bold ? `${spacing.medium}` : 0}px;
+    props.bold ? `${spacing.xsmall}` : 0}px;
 `
 export const Title = styled(BodyText)`
   font-family: ${theme.fontFamily.bold};
