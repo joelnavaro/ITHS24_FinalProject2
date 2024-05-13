@@ -2,10 +2,13 @@ import styled from 'styled-components/native'
 import { color } from '../theme/color'
 import { spacing } from '../theme/spacing'
 
-export const ScreenBase = styled.View`
+export const ScreenBase = styled.View<{ backgroundColor: string }>`
   flex: 1;
-  background-color: ${color.white};
-  padding: ${spacing.medium}px;
+  /* justify-content: flex-end; */
+  background-color: ${(props: { backgroundColor: string }) =>
+    props.backgroundColor ? props.backgroundColor : color.white};
+  padding: 0px ${spacing.medium}px;
+  gap: ${spacing.small}px;
 `
 export const Container = styled.View<{ row?: boolean; wrap?: boolean }>`
   flex-direction: ${(props: { row: boolean }) =>
@@ -21,8 +24,9 @@ export const SpaceEvenly = styled.View<{ transparent?: boolean }>`
     props.transparent ? 'transparent' : `${color.white}`};
 `
 export const ScrollContainer = styled.ScrollView<{ backgroundColor?: string }>`
-  /* flex: 1; */
+  flex: 1;
   background-color: ${(props: { backgroundColor: string }) =>
     props.backgroundColor ? props.backgroundColor : color.white};
-  margin-top: ${spacing.small}px;
+  /* gap: ${spacing.small}px; */
+  /* margin-top: ${spacing.small}px; */
 `

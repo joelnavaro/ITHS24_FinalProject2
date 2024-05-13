@@ -10,7 +10,7 @@ export default function AuthLayout() {
     <Stack
       screenOptions={({ route }) => ({
         ...defaultNavigationOptions,
-        title: getHeader(route.name),
+        title: 'FAVRAPP',
         headerLeft: () => <HeaderLeft route={route} />,
         headerRight: () => (
           <HeaderRight

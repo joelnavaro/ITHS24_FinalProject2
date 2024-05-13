@@ -11,7 +11,6 @@ import 'react-native-reanimated'
 
 import { useColorScheme } from '@/hooks/useColorScheme'
 import { StatusBar } from 'expo-status-bar'
-import { color } from '@/theme/color'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
