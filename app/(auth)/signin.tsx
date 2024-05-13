@@ -13,6 +13,7 @@ import { IconEnum } from '@/components/icons/Icons'
 import { Alert } from 'react-native'
 import { KeyboardView } from '@/components/KeyboardView'
 import { Separator } from '@/components/Separator'
+import { CenteredBodyText, CenteredTitle } from '.'
 
 export default function Signin() {
   const [form, setForm] = useState({
@@ -44,7 +45,7 @@ export default function Signin() {
           </BaseCard>
           <Separator />
 
-          <BaseCard backgroundColor={color.white}>
+          <BaseCard backgroundColor={color.seaShell}>
             <CenteredBodyText bold>
               Log in with email and Password!
             </CenteredBodyText>
@@ -83,14 +84,3 @@ export default function Signin() {
     </KeyboardView>
   )
 }
-
-const CenteredBodyText = styled(BodyText)`
-  align-self: center;
-  margin: auto;
-  margin-bottom: ${spacing.small}px;
-`
-const CenteredTitle = styled(BodyText)`
-  align-self: center;
-  margin: auto;
-  margin-bottom: ${spacing.small}px;
-`

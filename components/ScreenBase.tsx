@@ -27,6 +27,4 @@ export const ScrollContainer = styled.ScrollView<{ backgroundColor?: string }>`
   flex: 1;
   background-color: ${(props: { backgroundColor: string }) =>
     props.backgroundColor ? props.backgroundColor : color.white};
-  /* gap: ${spacing.small}px; */
-  /* margin-top: ${spacing.small}px; */
 `

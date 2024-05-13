@@ -73,7 +73,7 @@ const InputContainer = styled.View<{ hasValue: boolean; error: boolean }>`
   justify-content: space-between;
   color: ${(props: { hasValue: boolean }) =>
     props.hasValue ? color.lightGrey : color.darkSlate};
-  background-color: ${color.lightGrey};
+  background-color: ${color.darkGray5};
   border: 1px solid
     ${(props: { error: boolean }) =>
       props.error ? color.error : color.darkSlate};
@@ -88,6 +88,6 @@ const PaddingText = styled(BodyText)`
 `
 const StyledInput = styled.TextInput`
   flex-grow: 1;
-  background-color: 'red';
+  /* background-color: 'red'; */
   height: 45px;
 `

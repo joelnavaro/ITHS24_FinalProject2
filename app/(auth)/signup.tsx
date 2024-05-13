@@ -30,22 +30,22 @@ export default function Signup() {
   }
   return (
     <KeyboardView>
-      <ScreenBase backgroundColor={color.secondary}>
-        <ScrollContainer backgroundColor={color.secondary}>
+      <ScreenBase backgroundColor={color.primary}>
+        <ScrollContainer backgroundColor={color.primary}>
           <Separator />
 
-          <BaseCard backgroundColor={color.secondary}>
-            <CenteredTitle color={color.primary} bold size={spacing.xlarge}>
+          <BaseCard backgroundColor={color.primary}>
+            <CenteredTitle color={color.white} bold size={spacing.xlarge}>
               Sign Up.
             </CenteredTitle>
             <Separator size={20} />
-            <BodyText color={color.primary} bold size={spacing.xlarge}>
+            <BodyText color={color.white} bold size={spacing.xlarge}>
               Create an account and start using the app..
             </BodyText>
           </BaseCard>
-          <Separator />
-          <Separator />
-          <BaseCard backgroundColor={color.white}>
+          <Separator size={20} />
+
+          <BaseCard backgroundColor={color.seaShell}>
             <CenteredBodyText bold>
               Sign up with email and Password!
             </CenteredBodyText>

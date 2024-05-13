@@ -27,7 +27,8 @@ export default function WelcomePage() {
           The best app to start organizing your gigs.
         </BodyText>
       </BaseCard>
-      <BaseCard backgroundColor={color.lightGrey}>
+
+      <BaseCard backgroundColor={color.seaShell}>
         <BodyText>Sign In into your account!</BodyText>
         <PaddingButton
           label="Sign In"
