@@ -4,14 +4,16 @@ import { fontFamily, fontSize } from '../theme/font'
 import { Keyboard } from 'react-native'
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
 import { IconEnum } from '@/components/icons/Icons'
+import { NativeStackNavigationOptions } from '@react-navigation/native-stack'
 
-export const defaultNavigationOptions = {
+export const defaultNavigationOptions: NativeStackNavigationOptions = {
   headerStyle: {
     backgroundColor: color.primary,
   },
   headerTitleStyle: {
     fontFamily: fontFamily.regular,
     fontSize: fontSize.default,
+    fontWeight: 'bold',
     color: color.white,
   },
 }
@@ -77,6 +79,18 @@ export const getAppScreenTitle = (route: string) => {
     default:
       return 'Discappear'
   }
+}
+
+const getHeader = (routeName: string) => {
+  switch (routeName) {
+    case 'signin':
+      return 'Sign in'
+    case 'signup':
+      return 'Sign up'
+    default:
+      return 'Welcome'
+  }
+  // return routeName === "signin" ? "Sign in" : "Sign up";
 }
 
 const modalType:

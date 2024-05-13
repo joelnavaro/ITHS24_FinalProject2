@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { Redirect, Tabs } from 'expo-router'
+import { Tabs } from 'expo-router'
 import { TabBarIcon } from '@/components/TabBarIcon'
 import {
   defaultTabNavigationOptions,
@@ -10,12 +9,6 @@ import { color } from '@/theme/color'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 
 export default function TabLayout() {
-  // const [permission, setPermission] = useState(false);
-
-  // if (!permission) {
-  //   return <Redirect href="/(auth)/signin" />;
-  // }
-
   return (
     <SafeAreaProvider>
       <SafeAreaView

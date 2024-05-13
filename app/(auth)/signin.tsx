@@ -1,6 +1,5 @@
 import { ScreenBase, ScrollContainer } from '@/components/ScreenBase'
-import styled from 'styled-components/native'
-import { BodyText, Title } from '@/components/Text'
+import { BodyText } from '@/components/Text'
 import { useState } from 'react'
 import { BaseCard } from '@/components/BaseCard'
 import { color } from '@/theme/color'

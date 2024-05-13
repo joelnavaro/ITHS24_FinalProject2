@@ -13,6 +13,7 @@ import { IconEnum } from '@/components/icons/Icons'
 import { Alert } from 'react-native'
 import { KeyboardView } from '@/components/KeyboardView'
 import { Separator } from '@/components/Separator'
+import { CenteredBodyText, CenteredTitle } from '.'
 
 export default function Signup() {
   const [form, setForm] = useState({
@@ -92,14 +93,3 @@ export default function Signup() {
     </KeyboardView>
   )
 }
-
-const CenteredBodyText = styled(BodyText)`
-  align-self: center;
-  margin: auto;
-  margin-bottom: ${spacing.small}px;
-`
-const CenteredTitle = styled(BodyText)`
-  align-self: center;
-  margin: auto;
-  margin-bottom: ${spacing.small}px;
-`
