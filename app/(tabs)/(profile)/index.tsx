@@ -1,10 +1,11 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { BaseCard } from '@/components/BaseCard'
+import { ScreenBase } from '@/components/ScreenBase'
+import { color } from '@/theme/color'
 
 export default function Profile() {
   return (
-    <View>
-      <Text>Profile</Text>
-    </View>
+    <ScreenBase backgroundColor={color.darkGray5}>
+      <BaseCard></BaseCard>
+    </ScreenBase>
   )
 }

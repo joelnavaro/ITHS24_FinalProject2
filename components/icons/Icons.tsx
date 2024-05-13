@@ -26,6 +26,9 @@ import { SearchWeb } from './SearchWeb'
 import { Star } from './Star'
 import { Unfold } from './Unfold'
 import { Bracket } from './Bracket'
+import { Lock } from './Lock'
+import { Letter } from './Letter'
+import { User } from './user'
 
 export enum IconEnum {
   plus = 'plus',
@@ -56,6 +59,9 @@ export enum IconEnum {
   star = 'star',
   unfold = 'unfold',
   bracket = 'bracket',
+  lock = 'lock',
+  letter = 'letter',
+  user = 'user',
 }
 
 interface IconInterface {
@@ -127,6 +133,12 @@ export const Icon = ({
     return <Unfold width={width} height={height} color={color} />
   if (icon === IconEnum.bracket)
     return <Bracket width={width} height={height} color={color} />
+  if (icon === IconEnum.lock)
+    return <Lock width={width} height={height} color={color} />
+  if (icon === IconEnum.letter)
+    return <Letter width={width} height={height} color={color} />
+  if (icon === IconEnum.user)
+    return <User width={width} height={height} color={color} />
 
   return <Plus width={width} height={height} />
 }

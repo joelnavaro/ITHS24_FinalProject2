@@ -9,4 +9,32 @@ export const color = {
   warning: '#FFEE93',
   white: '#FFFFFF',
   black: '#000',
+  champagne: '#F9DCC4',
+  seaShell: '#F8EDEB',
+  darkGray5: '#BBBFC9',
+}
+export const colorCold = {
+  darkBlue1: '#001233',
+  darkBlue2: '#001845',
+  darkBlue3: '#002855',
+  darkBlue4: '#023E7D',
+  darkBlue5: '#0353A4',
+  darkBlue6: '#0466C8',
+  darkGray1: '#33415C',
+  darkGray2: '#5C677D',
+  darkGray3: '#7D8597',
+  darkGray4: '#979DAC',
+  darkGray5: '#BBBFC9',
+}
+export const colorWarm = {
+  melon: '#FFB5A7',
+  paleMelon: '#FCD5CE',
+  seaShell: '#F8EDEB',
+  champagne: '#F9DCC4',
+  peach: '#FEC89A',
+  // darkBlue6: '#0466C8',
+  // darkGrey1: '#33415C',
+  // darkGrey2: '#5C677D',
+  // darkGrey3: '#7D8597',
+  // darkGrey4: '#979DAC',
 }

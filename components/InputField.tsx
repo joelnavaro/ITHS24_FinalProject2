@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import styled from 'styled-components/native'
 import { Icon, IconEnum } from './icons/Icons'
 import { color } from '../theme/color'
-import { TextInputProps, View } from 'react-native'
+import { TextInputProps, TouchableOpacity, View } from 'react-native'
 import { spacing } from '../theme/spacing'
 import { BodyText, SmallText } from './Text'
 import { fontSize } from '../theme/font'
@@ -28,6 +28,7 @@ export const InputField: FC<InputFieldProps> = ({
   ...props
 }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false)
+  const [showPassword, setShowPassword] = useState<boolean>(false)
   return (
     <View>
       {label && <PaddingText bold>{label}</PaddingText>}
@@ -42,13 +43,20 @@ export const InputField: FC<InputFieldProps> = ({
           onEndEditing={() => setIsFocused(false)}
           placeholderTextColor={color.darkSlate}
           editable={disabled}
+          secureTextEntry={label === 'Password' && !showPassword}
           {...props}
         />
         {icon && (
-          <Icon
-            icon={icon}
-            color={value || isFocused ? color.darkSlate : color.lightGrey}
-          />
+          <TouchableOpacity
+            onPress={() => {
+              label === 'Password' && setShowPassword(!showPassword)
+            }}
+          >
+            <Icon
+              icon={icon}
+              color={value || isFocused ? color.darkSlate : color.fernGreen}
+            />
+          </TouchableOpacity>
         )}
       </InputContainer>
       {error && (
@@ -65,7 +73,7 @@ const InputContainer = styled.View<{ hasValue: boolean; error: boolean }>`
   justify-content: space-between;
   color: ${(props: { hasValue: boolean }) =>
     props.hasValue ? color.lightGrey : color.darkSlate};
-  background-color: ${color.lightGrey};
+  background-color: ${color.darkGray5};
   border: 1px solid
     ${(props: { error: boolean }) =>
       props.error ? color.error : color.darkSlate};
@@ -80,7 +88,6 @@ const PaddingText = styled(BodyText)`
 `
 const StyledInput = styled.TextInput`
   flex-grow: 1;
-  background-color: 'red';
-  height: 40px;
-  /* border: 2px solid black; */
+  /* background-color: 'red'; */
+  height: 45px;
 `

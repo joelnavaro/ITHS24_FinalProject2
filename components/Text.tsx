@@ -3,8 +3,6 @@ import { theme } from '../theme'
 import { fontSize } from '../theme/font'
 import { spacing } from '../theme/spacing'
 
-//adjust these components ASAP
-
 export const BodyText = styled.Text<{
   bold?: boolean
   color?: string
