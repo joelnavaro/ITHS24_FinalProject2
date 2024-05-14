@@ -1,5 +1,4 @@
-import { ScreenBase } from '@/components/ScreenBase'
-import { ScrollView } from 'react-native'
+import { ScreenBase, ScrollContainer } from '@/components/ScreenBase'
 import { Button } from '@/components/Button'
 import { ButtonType } from '@/utils/types'
 import { router } from 'expo-router'
@@ -8,7 +7,8 @@ import { Separator } from '@/components/Separator'
 export default function Library() {
   return (
     <ScreenBase>
-      <ScrollView>
+      <ScrollContainer>
+        <Separator />
         <Button
           label="Colors"
           type={ButtonType.primary}
@@ -16,16 +16,35 @@ export default function Library() {
             router.push('colors')
           }}
         />
-        <Separator size={10} />
+        <Separator />
 
         <Button
           label="Buttons"
-          type={ButtonType.primary}
+          type={ButtonType.secondary}
           onPress={() => {
             router.push('buttons')
           }}
         />
-      </ScrollView>
+        <Separator />
+
+        <Button
+          label="Fields"
+          type={ButtonType.complement}
+          onPress={() => {
+            router.push('inputFields')
+          }}
+        />
+        <Separator />
+
+        <Button
+          label="Icons"
+          type={ButtonType.primary}
+          onPress={() => {
+            router.push('icons')
+          }}
+        />
+        <Separator />
+      </ScrollContainer>
     </ScreenBase>
   )
 }

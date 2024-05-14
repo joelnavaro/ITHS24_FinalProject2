@@ -45,7 +45,8 @@ const StyledButton = styled.TouchableOpacity<{
   borderColor?: string
   borderLine: boolean
 }>`
-  width: 100%;
+  flex: 1;
+  margin: ${spacing.small}px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -64,3 +65,10 @@ const StyledButton = styled.TouchableOpacity<{
 const PaddingText = styled(BodyText)`
   padding-right: ${spacing.small}px;
 `
+export const ButtonsContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: ${spacing.small}px;
+`
+export const Touchable = styled.TouchableOpacity``

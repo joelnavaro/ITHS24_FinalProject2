@@ -29,6 +29,11 @@ import { Bracket } from './Bracket'
 import { Lock } from './Lock'
 import { Letter } from './Letter'
 import { User } from './user'
+import { Security } from './Security'
+import { Logout } from './Logout'
+import { Edit } from './Edit'
+import { Settings } from './Settings'
+import { XIcon } from './X-Icon'
 
 export enum IconEnum {
   plus = 'plus',
@@ -62,6 +67,11 @@ export enum IconEnum {
   lock = 'lock',
   letter = 'letter',
   user = 'user',
+  security = 'security',
+  logout = 'logout',
+  edit = 'edit',
+  settings = 'settings',
+  xIcon = 'xIcon',
 }
 
 interface IconInterface {
@@ -139,6 +149,16 @@ export const Icon = ({
     return <Letter width={width} height={height} color={color} />
   if (icon === IconEnum.user)
     return <User width={width} height={height} color={color} />
+  if (icon === IconEnum.security)
+    return <Security width={width} height={height} color={color} />
+  if (icon === IconEnum.logout)
+    return <Logout width={width} height={height} color={color} />
+  if (icon === IconEnum.edit)
+    return <Edit width={width} height={height} color={color} />
+  if (icon === IconEnum.settings)
+    return <Settings width={width} height={height} color={color} />
+  if (icon === IconEnum.xIcon)
+    return <XIcon width={width} height={height} color={color} />
 
   return <Plus width={width} height={height} />
 }

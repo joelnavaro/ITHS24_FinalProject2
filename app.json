@@ -26,7 +26,18 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": ["expo-router", "expo-font"],
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow Favrapp to access your photos.",
+          "savePhotosPermission": "Allow Favrapp to save photos.",
+          "isAccessMediaLocationEnabled": true
+        }
+      ]
+    ],
     "experiments": {
       "typedRoutes": true
     }

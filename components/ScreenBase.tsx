@@ -7,7 +7,7 @@ export const ScreenBase = styled.View<{ backgroundColor: string }>`
   /* justify-content: flex-end; */
   background-color: ${(props: { backgroundColor: string }) =>
     props.backgroundColor ? props.backgroundColor : color.white};
-  padding: 0px ${spacing.medium}px;
+  padding: 0px ${spacing.small}px;
   gap: ${spacing.small}px;
 `
 export const Container = styled.View<{ row?: boolean; wrap?: boolean }>`

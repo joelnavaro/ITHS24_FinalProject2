@@ -11,6 +11,7 @@ import 'react-native-reanimated'
 
 import { useColorScheme } from '@/hooks/useColorScheme'
 import { StatusBar } from 'expo-status-bar'
+import { defaultModalStyleOptions } from '@/utils/modalsUtils'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -37,7 +38,8 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        {/* <Stack.Screen name="modal" options={{ presentation: 'modal' }} /> */}
+        {/* <Stack.Screen name="(modals)" options={{ presentation: 'modal' }} /> */}
+        <Stack.Screen name="(modals)" options={defaultModalStyleOptions} />
       </Stack>
     </ThemeProvider>
   )
