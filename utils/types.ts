@@ -6,3 +6,9 @@ export enum ButtonType {
   textButton,
   complement,
 }
+
+export interface UserAppCredentials {
+  firstName: string
+  lastName: string
+  profilePicture: string
+}

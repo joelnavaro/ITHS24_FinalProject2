@@ -1,7 +1,7 @@
 export const color = {
   primary: '#003D5B',
   secondary: '#34A0A4',
-  lightGrey: '#CAD2C5',
+  lightGreen: '#CAD2C5',
   darkSlate: '#354F52',
   fernGreen: '#588157',
   success: '#B8CDB5',
@@ -11,7 +11,7 @@ export const color = {
   black: '#000',
   champagne: '#F9DCC4',
   seaShell: '#F8EDEB',
-  darkGray5: '#BBBFC9',
+  lightGray: '#BBBFC9',
 }
 export const colorCold = {
   darkBlue1: '#001233',

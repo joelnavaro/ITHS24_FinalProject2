@@ -1,7 +1,5 @@
-import { router } from 'expo-router'
 import { color } from '../theme/color'
 import { fontFamily, fontSize } from '../theme/font'
-import { Keyboard } from 'react-native'
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
 import { IconEnum } from '@/components/icons/Icons'
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack'
@@ -53,7 +51,7 @@ export const getTabIconName = (route: string) => {
     case '(search)':
       return IconEnum.search
     case '(profile)':
-      return IconEnum.account
+      return IconEnum.user
     case '(library)':
       return IconEnum.list
     default:
@@ -93,25 +91,6 @@ const getHeader = (routeName: string) => {
   // return routeName === "signin" ? "Sign in" : "Sign up";
 }
 
-const modalType:
-  | 'modal'
-  | 'transparentModal'
-  | 'containedModal'
-  | 'containedTransparentModal'
-  | 'fullScreenModal'
-  | 'formSheet'
-  | 'card'
-  | undefined = 'modal'
-
-export const defaultModalStyleOptions = {
-  presentation: modalType,
-  headerShown: false,
-  contentStyle: {
-    flex: 1,
-    backgroundColor: 'transparent',
-  },
-}
-
 export const filterPaths = (currentScreen: string) => {
   let excludedPaths: boolean
   if (
@@ -129,18 +108,4 @@ export const filterPaths = (currentScreen: string) => {
     excludedPaths = false
   }
   return excludedPaths
-}
-
-export const closeModal = () => {
-  router.replace('/')
-}
-export const navigateBackModal = () => {
-  router.replace('../')
-}
-
-export const keyboardListener = (setState: (value: boolean) => void) => {
-  console.log('keyboardListener')
-  Keyboard.addListener('keyboardDidShow', () => {
-    setState(true)
-  })
 }

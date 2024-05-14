@@ -72,8 +72,8 @@ const InputContainer = styled.View<{ hasValue: boolean; error: boolean }>`
   align-items: center;
   justify-content: space-between;
   color: ${(props: { hasValue: boolean }) =>
-    props.hasValue ? color.lightGrey : color.darkSlate};
-  background-color: ${color.darkGray5};
+    props.hasValue ? color.lightGreen : color.darkSlate};
+  background-color: ${color.lightGray};
   border: 1px solid
     ${(props: { error: boolean }) =>
       props.error ? color.error : color.darkSlate};

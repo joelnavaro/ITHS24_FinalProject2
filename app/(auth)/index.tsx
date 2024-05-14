@@ -11,13 +11,7 @@ import styled from 'styled-components/native'
 
 export default function WelcomePage() {
   return (
-    <StyledScrollContainer
-      contentContainerStyle={{
-        height: '100%',
-        justifyContent: 'space-evenly',
-      }}
-      backgroundColor={color.primary}
-    >
+    <StyledScrollContainer backgroundColor={color.primary}>
       <BaseCard backgroundColor={color.primary}>
         <CenteredTitle color={color.white} bold size={spacing.xxlarge}>
           Welcome to Favrapp!
@@ -27,7 +21,7 @@ export default function WelcomePage() {
           The best app to start organizing your gigs.
         </BodyText>
       </BaseCard>
-
+      <Separator size={100} />
       <BaseCard backgroundColor={color.seaShell}>
         <BodyText>Sign In into your account!</BodyText>
         <PaddingButton
