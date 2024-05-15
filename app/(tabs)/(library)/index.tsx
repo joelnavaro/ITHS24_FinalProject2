@@ -38,7 +38,7 @@ export default function Library() {
 
         <Button
           label="Icons"
-          type={ButtonType.primary}
+          type={ButtonType.secondary}
           onPress={() => {
             router.push('icons')
           }}

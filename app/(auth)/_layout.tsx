@@ -11,7 +11,7 @@ export default function AuthLayout() {
 
   if (authenticated) {
     // return <Redirect href="/(tabs)/(home)" />
-    return <Redirect href="/(tabs)/(profile)" />
+    return <Redirect href="/(tabs)/(home)" />
   }
   return (
     <Stack

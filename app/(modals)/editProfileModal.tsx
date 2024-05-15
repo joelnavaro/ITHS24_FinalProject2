@@ -14,7 +14,11 @@ import styled from 'styled-components/native'
 import * as ImagePicker from 'expo-image-picker'
 import { Alert } from 'react-native'
 import { ProfileAvatar } from '@/components/ProfileAvatar'
-import { saveToAsyncStorage, userInfoAsKey } from '@/utils/asyncStorageUtils'
+import {
+  resetAsyncStorage,
+  saveToAsyncStorage,
+  userInfoAsKey,
+} from '@/utils/asyncStorageUtils'
 
 export default function EditProfileModal() {
   const [form, setForm] = useState({
@@ -97,7 +101,10 @@ export default function EditProfileModal() {
               label="Reset"
               type={ButtonType.primary}
               icon={IconEnum.check}
-              onPress={() => {}}
+              onPress={() => {
+                resetAsyncStorage()
+                closeModal()
+              }}
             />
             <Button
               label="Save"

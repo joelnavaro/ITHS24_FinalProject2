@@ -21,7 +21,7 @@ export const ProfileBar: FC<{ canEdit?: boolean }> = ({ canEdit }) => {
         <IconButton
           icon={IconEnum.edit}
           size={30}
-          color={color.black}
+          color={color.fernGreen}
           onPress={() => {
             router.push('/(modals)/editProfileModal')
           }}

@@ -21,7 +21,7 @@ export const defaultModalStyleOptions = {
 }
 
 export const closeModal = () => {
-  router.replace('/')
+  router.push('../')
 }
 export const navigateBackModal = () => {
   router.replace('../')

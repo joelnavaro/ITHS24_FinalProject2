@@ -9,7 +9,7 @@ export const Chevron = ({
   props,
   style,
 }: IconInterface) => (
-  <Svg width={width} height={height} fill="none" {...props} style={style}>
+  <Svg width={width} height={height} fill="none" style={style} {...props}>
     <Path
       fill={color}
       d="M7.41 15.42 12 10.83l4.59 4.59L18 14l-6-6-6 6 1.41 1.42Z"
