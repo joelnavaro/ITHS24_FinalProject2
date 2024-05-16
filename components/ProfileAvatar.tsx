@@ -1,25 +1,36 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components/native'
 import { color } from '@/theme/color'
 import { Camera } from './icons/Camera'
 import { getUserCredAs, userInfoAsKey } from '@/utils/asyncStorageUtils'
 import { User } from './icons/user'
+import { useAppSelector } from '@/hooks/hooks'
+import { selectAuthState } from '@/state/user/userSlice'
 
 export const ProfileAvatar: FC<{
   route?: string
   size?: number
   focused?: boolean
 }> = ({ route, size, focused }) => {
+  const user = useAppSelector(selectAuthState)
   const [avatar, setAvatar] = useState<string>()
 
-  const fetchAvatar = async () => {
-    const data = await getUserCredAs(userInfoAsKey)
-    if (data !== null) setAvatar(data.profilePicture)
-  }
+  const fetchAvatar = useCallback(async () => {
+    if (user.uid !== null) {
+      const result = await getUserCredAs(user.uid)
+      if (result) {
+        setAvatar(result.profilePicture)
+      } else {
+        return
+      }
+    } else {
+      return
+    }
+  }, [user.uid])
 
   useEffect(() => {
     fetchAvatar()
-  }, [])
+  }, [fetchAvatar])
 
   return avatar ? (
     <UserAvatar source={{ uri: avatar }} size={size} />

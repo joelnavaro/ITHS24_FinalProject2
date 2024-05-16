@@ -10,6 +10,7 @@ export default () => {
       name: 'iths-examen51',
       slug: 'iths-examen51',
       version: '1.0.0',
+      runtimeVersion: '51.0.6',
       orientation: 'portrait',
       icon: './assets/images/icon.png',
       scheme: 'iths-examen51.dev',
@@ -34,6 +35,16 @@ export default () => {
           'expo-dev-launcher',
           {
             launchMode: 'most-recent',
+          },
+        ],
+        '@react-native-firebase/app',
+        '@react-native-firebase/auth',
+        [
+          'expo-build-properties',
+          {
+            ios: {
+              useFrameworks: 'static',
+            },
           },
         ],
       ],

@@ -19,8 +19,11 @@ import {
   saveToAsyncStorage,
   userInfoAsKey,
 } from '@/utils/asyncStorageUtils'
+import { useAppSelector } from '@/hooks/hooks'
+import { selectAuthState } from '@/state/user/userSlice'
 
 export default function EditProfileModal() {
+  const user = useAppSelector(selectAuthState)
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
@@ -29,7 +32,9 @@ export default function EditProfileModal() {
 
   const saveChanges = async () => {
     try {
-      await saveToAsyncStorage(userInfoAsKey, form)
+      await saveToAsyncStorage(user.uid!, {
+        profilePicture: form.profilePicture,
+      })
       closeModal()
     } catch (error) {
       Alert.alert(

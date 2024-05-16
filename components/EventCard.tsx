@@ -7,9 +7,18 @@ import { BodyText } from './Text'
 import { Chevron } from './icons/Chevron'
 import { Touchable } from './Button'
 import { router } from 'expo-router'
+import { Separator } from './Separator'
+import { IconText } from './IconText'
+import { IconEnum } from './icons/Icons'
 
-export const EventCard: FC<{}> = ({}) => {
-  const image = 'https://picsum.photos/200/300'
+export const EventCard: FC<{
+  title: string
+  image: string
+  endDate: string
+  typeOfEvent: string
+  eventState: string
+  location: string
+}> = ({ title, image, endDate, typeOfEvent, eventState, location }) => {
   const navigate = () => {
     router.push('/(tabs)/eventDetails')
   }
@@ -22,13 +31,28 @@ export const EventCard: FC<{}> = ({}) => {
         />
       </StyledBaseCard>
       <StyledRow backgroundColor={color.champagne}>
-        <BodyText>Event Card</BodyText>
-        {/* insert line under the title */}
+        <VerticalView>
+          <TitleContainer>
+            <BodyText bold>{title}</BodyText>
+          </TitleContainer>
+          <Separator size={1} color={color.black} />
+          <HorizontalView>
+            <VerticalView>
+              <IconText label={typeOfEvent} icon={IconEnum.star} />
+              <IconText label={location} icon={IconEnum.landmark} />
+            </VerticalView>
+            <VerticalView>
+              <IconText label={eventState} icon={IconEnum.star} />
+              <IconText label={endDate} icon={IconEnum.calendar} />
+            </VerticalView>
+          </HorizontalView>
+        </VerticalView>
         <Touchable onPress={navigate}>
           <Chevron
-            height={30}
-            width={30}
-            color={color.fernGreen}
+            height={35}
+            width={35}
+            color={color.darkSlate}
+            viewBox="0 -1 24 24"
             style={{ transform: [{ rotate: '90deg' }] }}
           />
         </Touchable>
@@ -59,5 +83,21 @@ const StyledRow = styled(BaseCard)`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 5px;
+  border-radius: ${spacing.medium}px;
+  padding: 4px;
+`
+const TitleContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+`
+
+const VerticalView = styled.View`
+  flex: 1;
+  /* align-items: center; */
+  /* border: 1px solid black; */
+`
+const HorizontalView = styled.View`
+  flex-direction: row;
+  justify-content: space-around;
+  /* border: 1px solid black; */
 `

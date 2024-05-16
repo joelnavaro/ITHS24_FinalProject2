@@ -4,13 +4,14 @@ import { HeaderLeft } from '@/components/HeaderLeft'
 import { HeaderRight } from '@/components/HeaderRight'
 import { IconEnum } from '@/components/icons/Icons'
 import { color } from '@/theme/color'
-import { useState } from 'react'
+import { useAppSelector } from '@/hooks/hooks'
+import { selectIsAuthenticated } from '@/state/user/userSlice'
 
 export default function AuthLayout() {
-  const [authenticated, setAuthenticated] = useState(true)
+  const isAuthenticated = useAppSelector(selectIsAuthenticated)
+  // console.log('in auth', permission)
 
-  if (authenticated) {
-    // return <Redirect href="/(tabs)/(home)" />
+  if (isAuthenticated) {
     return <Redirect href="/(tabs)/(home)" />
   }
   return (
