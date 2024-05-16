@@ -7,6 +7,7 @@ import {
 } from '../../utils/navigationUtils'
 import { color } from '@/theme/color'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
+import { ProfileAvatar } from '@/components/ProfileAvatar'
 
 export default function TabLayout() {
   return (
@@ -19,14 +20,21 @@ export default function TabLayout() {
           screenOptions={({ route }) => ({
             ...defaultTabNavigationOptions,
             title: getTabHeaderTitle(route.name),
-            tabBarIcon: ({ focused, size }) => (
-              <TabBarIcon
-                icon={getTabIconName(route.name)}
-                color={focused ? color.warning : color.white}
-                size={size}
-                focused={focused}
-              />
-            ),
+            tabBarIcon: ({ focused, size }) =>
+              route.name === '(profile)' ? (
+                <ProfileAvatar
+                  route={route.name}
+                  size={size}
+                  focused={focused}
+                />
+              ) : (
+                <TabBarIcon
+                  icon={getTabIconName(route.name)}
+                  color={focused ? color.warning : color.white}
+                  size={size}
+                  focused={focused}
+                />
+              ),
           })}
         >
           <Tabs.Screen name="(home)" />

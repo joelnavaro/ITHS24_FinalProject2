@@ -13,19 +13,27 @@ import { Alert } from 'react-native'
 import { KeyboardView } from '@/components/KeyboardView'
 import { Separator } from '@/components/Separator'
 import { CenteredBodyText, CenteredTitle } from '.'
+import { useAuth } from '@/firebase/hooks/useAuth'
 
 export default function Signin() {
+  const { signIn } = useAuth()
   const [form, setForm] = useState({
     email: '',
     password: '',
   })
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (form.email === '' || form.password === '') {
-      Alert.alert('Sign in.', 'Please fill in all fields!')
+      Alert.alert('Sign In.', 'Please fill in all fields!')
       return
+    } else {
+      try {
+        await signIn(form.email, form.password)
+        router.replace('/(tabs)/')
+      } catch (error) {
+        console.log('SignIn screen', error)
+      }
     }
-    router.replace('/(tabs)/')
   }
   return (
     <KeyboardView>
@@ -55,6 +63,7 @@ export default function Signin() {
               value={form.email}
               keyboardType="email-address"
               onChangeText={(value) => setForm({ ...form, email: value })}
+              autoCapitalize="none"
             />
             <InputField
               label="Password"
@@ -63,6 +72,7 @@ export default function Signin() {
               value={form.password}
               keyboardType="email-address"
               onChangeText={(value) => setForm({ ...form, password: value })}
+              autoCapitalize="none"
             />
             <Button
               label="Sign In"

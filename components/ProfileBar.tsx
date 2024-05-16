@@ -8,20 +8,23 @@ import { router } from 'expo-router'
 import styled from 'styled-components/native'
 import { spacing } from '@/theme/spacing'
 import { BaseCard } from './BaseCard'
+import { selectAuthState } from '@/state/user/userSlice'
+import { useAppSelector } from '@/hooks/hooks'
 
 export const ProfileBar: FC<{ canEdit?: boolean }> = ({ canEdit }) => {
+  const user = useAppSelector(selectAuthState)
   return (
     <ProfileCard>
       <ProfileAvatar />
       <Section>
-        <Title>John Doe</Title>
-        <BodyText>John Doeeeeeeeeeeeeeeeee</BodyText>
+        <Title>{user.name !== '' ? user.name : 'Profile Name.'}</Title>
+        <BodyText>{user.email !== '' ? user.email : 'User email.'}</BodyText>
       </Section>
       {canEdit && (
         <IconButton
           icon={IconEnum.edit}
           size={30}
-          color={color.black}
+          color={color.fernGreen}
           onPress={() => {
             router.push('/(modals)/editProfileModal')
           }}

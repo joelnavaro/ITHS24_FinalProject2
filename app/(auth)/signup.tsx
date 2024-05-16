@@ -13,20 +13,29 @@ import { Alert } from 'react-native'
 import { KeyboardView } from '@/components/KeyboardView'
 import { Separator } from '@/components/Separator'
 import { CenteredBodyText, CenteredTitle } from '.'
+import { useAuth } from '@/firebase/hooks/useAuth'
 
 export default function Signup() {
+  const { signUp } = useAuth()
   const [form, setForm] = useState({
-    userName: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
   })
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (form.email === '' || form.password === '') {
       Alert.alert('Sign up.', 'Please fill in all fields!')
       return
+    } else {
+      try {
+        await signUp(form.firstName, form.lastName, form.email, form.password)
+        router.replace('/(tabs)/')
+      } catch (error) {
+        console.log('SignUp screen', error)
+      }
     }
-    router.replace('/(tabs)/')
   }
   return (
     <KeyboardView>
@@ -50,12 +59,20 @@ export default function Signup() {
               Sign up with email and Password!
             </CenteredBodyText>
             <InputField
-              label="Name"
+              label="First Name"
               icon={IconEnum.user}
-              placeholder="name"
-              value={form.userName}
-              keyboardType="email-address"
-              onChangeText={(value) => setForm({ ...form, userName: value })}
+              placeholder="First Name"
+              value={form.firstName}
+              keyboardType="default"
+              onChangeText={(value) => setForm({ ...form, firstName: value })}
+            />
+            <InputField
+              label="Last Name"
+              icon={IconEnum.user}
+              placeholder="Last Name"
+              value={form.lastName}
+              keyboardType="default"
+              onChangeText={(value) => setForm({ ...form, lastName: value })}
             />
             <InputField
               label="Email"
@@ -64,6 +81,7 @@ export default function Signup() {
               value={form.email}
               keyboardType="email-address"
               onChangeText={(value) => setForm({ ...form, email: value })}
+              autoCapitalize="none"
             />
             <InputField
               label="Password"
@@ -72,6 +90,7 @@ export default function Signup() {
               value={form.password}
               keyboardType="email-address"
               onChangeText={(value) => setForm({ ...form, password: value })}
+              autoCapitalize="none"
             />
             <Button
               label="Register"

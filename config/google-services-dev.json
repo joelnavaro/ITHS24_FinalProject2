@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "472379149564",
+    "project_id": "iths-examen51",
+    "storage_bucket": "iths-examen51.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472379149564:android:6b5f996a05af2043305b79",
+        "android_client_info": {
+          "package_name": "com.ithsExamen51.app.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "472379149564-m4rutmpa6n6tulgghjp0j42tggimglmu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnbaWat-PyE0miFjXVEsJe-OE-NoCxpE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "472379149564-m4rutmpa6n6tulgghjp0j42tggimglmu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "472379149564-thflairjf8uhujkae0rafpq442ah3a68.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ithsExamen51.app.dev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

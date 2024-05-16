@@ -49,3 +49,36 @@ export const buttonTypes = (type: ButtonType) => {
     borderBottomWidth: false,
   }
 }
+
+export const barButtonTypes = (type: ButtonType) => {
+  if (type === ButtonType.secondary) {
+    return {
+      backgroundColor: color.darkSlate,
+      fontColor: color.white,
+      borderColor: color.darkSlate,
+      borderBottomWidth: false,
+    }
+  }
+  if (type === ButtonType.disable) {
+    return {
+      backgroundColor: color.white,
+      fontColor: color.darkSlate,
+      borderColor: color.darkSlate,
+      borderBottomWidth: false,
+    }
+  }
+  if (type === ButtonType.textButton) {
+    return {
+      backgroundColor: 'transparent',
+      fontColor: color.darkSlate,
+      borderColor: color.darkSlate,
+      bottomLine: true,
+    }
+  }
+  return {
+    backgroundColor: color.champagne,
+    fontColor: color.black,
+    borderColor: color.champagne,
+    borderBottomWidth: false,
+  }
+}

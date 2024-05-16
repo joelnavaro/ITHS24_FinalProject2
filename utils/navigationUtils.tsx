@@ -79,14 +79,14 @@ export const getAppScreenTitle = (route: string) => {
   }
 }
 
-const getHeader = (routeName: string) => {
+export const getHeaderTitle = (routeName: string) => {
   switch (routeName) {
     case 'signin':
       return 'Sign in'
     case 'signup':
       return 'Sign up'
     default:
-      return 'Welcome'
+      return 'FAVRAPP'
   }
   // return routeName === "signin" ? "Sign in" : "Sign up";
 }

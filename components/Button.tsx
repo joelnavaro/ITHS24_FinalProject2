@@ -71,4 +71,6 @@ export const ButtonsContainer = styled.View`
   align-items: center;
   padding: ${spacing.small}px;
 `
-export const Touchable = styled.TouchableOpacity``
+export const Touchable = styled.TouchableOpacity`
+  /* border: 1px solid black; */
+`

@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router'
 import { defaultNavigationOptions } from '../../../utils/navigationUtils'
 
-export default function _layout() {
+export default function Profilelayout() {
   return (
     <Stack
       screenOptions={({ route }) => ({
