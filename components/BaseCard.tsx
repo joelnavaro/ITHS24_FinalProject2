@@ -10,8 +10,7 @@ export const BaseCard = styled.View<{ backgroundColor: string }>`
   padding: ${spacing.large}px ${spacing.small}px;
 `
 export const BarCard = styled.View<{ backgroundColor: string; row?: boolean }>`
-  flex-direction: ${(props: { row?: boolean }) =>
-    props.row ? 'row' : 'column'};
+  flex-direction: ${(props: { row?: boolean }) => (props.row ? 'row' : 'column')};
   justify-content: space-evenly;
   background-color: ${(props: { backgroundColor: string }) =>
     props.backgroundColor ? props.backgroundColor : color.white};

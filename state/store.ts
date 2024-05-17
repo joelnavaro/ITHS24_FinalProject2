@@ -1,20 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import userReducer from './user/userSlice'
+import eventsReducer from './events/eventSlice'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import {
-  persistReducer,
-  persistStore,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from 'redux-persist'
+import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 
 const combinedRootReducer = combineReducers({
   user: userReducer,
+  events: eventsReducer,
 })
 const persistConfig = {
   key: 'root',

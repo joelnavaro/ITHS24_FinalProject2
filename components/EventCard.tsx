@@ -10,6 +10,7 @@ import { router } from 'expo-router'
 import { Separator } from './Separator'
 import { IconText } from './IconText'
 import { IconEnum } from './icons/Icons'
+import { formatDate } from '@/utils/dateUtils'
 
 export const EventCard: FC<{
   title: string
@@ -25,12 +26,9 @@ export const EventCard: FC<{
   return (
     <Container backgroundColor={'transparent'}>
       <StyledBaseCard backgroundColor={color.champagne}>
-        <StyledImage
-          source={{ uri: image || undefined }}
-          background={!!image}
-        />
+        <StyledImage source={{ uri: image || undefined }} background={!!image} />
       </StyledBaseCard>
-      <StyledRow backgroundColor={color.champagne}>
+      <StyledRow backgroundColor={color.seaShell}>
         <VerticalView>
           <TitleContainer>
             <BodyText bold>{title}</BodyText>
@@ -43,7 +41,7 @@ export const EventCard: FC<{
             </VerticalView>
             <VerticalView>
               <IconText label={eventState} icon={IconEnum.star} />
-              <IconText label={endDate} icon={IconEnum.calendar} />
+              <IconText label={formatDate(Number(endDate))} icon={IconEnum.calendar} />
             </VerticalView>
           </HorizontalView>
         </VerticalView>
@@ -72,8 +70,7 @@ const StyledImage = styled.Image<{ background: boolean }>`
   width: 75px;
   height: 75px;
   border-radius: ${spacing.large}px;
-  background-color: ${(props: { background: boolean }) =>
-    props.background ? color.white : color.error};
+  background-color: ${(props: { background: boolean }) => (props.background ? color.white : color.lightGray)};
 `
 const StyledBaseCard = styled(BaseCard)`
   padding: 5px;
@@ -93,11 +90,8 @@ const TitleContainer = styled.View`
 
 const VerticalView = styled.View`
   flex: 1;
-  /* align-items: center; */
-  /* border: 1px solid black; */
 `
 const HorizontalView = styled.View`
   flex-direction: row;
   justify-content: space-around;
-  /* border: 1px solid black; */
 `

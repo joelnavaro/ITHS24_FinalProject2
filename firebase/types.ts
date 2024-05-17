@@ -3,6 +3,7 @@ import firestore from '@react-native-firebase/firestore'
 
 export const rootCollection = 'ithsExamen'
 export const usersCollection = 'Users'
+export const eventsCollection = 'Events'
 
 export const imagesBucket = 'DisksImages'
 
@@ -14,6 +15,17 @@ export enum REQUEST_STATUS {
   LOADING = 'loading',
   ERROR = 'error',
   SUCCEEDED = 'succeeded',
+}
+export interface FirebaseErrorType {
+  code: string
+  message: string
+}
+
+export interface UserCredentials {
+  uid: string
+  firstName: string
+  lastName: string
+  email: string
 }
 
 export const authFirebase = auth()

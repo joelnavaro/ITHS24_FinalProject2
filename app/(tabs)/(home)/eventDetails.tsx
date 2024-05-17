@@ -1,8 +1,12 @@
+import { BaseCard } from '@/components/BaseCard'
+import { Button, ButtonsContainer } from '@/components/Button'
 import { ScreenBase, ScrollContainer } from '@/components/ScreenBase'
-import { Separator } from '@/components/Separator'
-import { Title } from '@/components/Text'
+import { BodyText, Title } from '@/components/Text'
+import { color } from '@/theme/color'
+import { spacing } from '@/theme/spacing'
+import { ButtonType } from '@/utils/types'
+import { router } from 'expo-router'
 import React, { useState } from 'react'
-import { Button, Text } from 'react-native'
 import styled from 'styled-components/native'
 
 export default function EventDetails() {
@@ -31,67 +35,73 @@ export default function EventDetails() {
       city: 'City',
       adress: 'Adress',
     },
-    evenType: 'Type',
+    evenType: 'Type of Event',
     eventState: 'State',
     organizer: 'Organizer',
+    userSections: {},
   }
   return (
-    <ScreenBase>
-      <ScrollContainer>
-        {/* <Separator size={20} /> */}
-        <EventContainer>
+    <ScreenBase backgroundColor={color.lightGray}>
+      <ScrollContainer backgroundColor={'transparent'}>
+        <BaseCard backgroundColor={color.white}>
           <Title>{event.title}</Title>
           <EventImage source={{ uri: event.image }} />
           <EventDescription>{event.description}</EventDescription>
-          <EventDetailsText>
-            Start Date: {event.dates.startDate}
-          </EventDetailsText>
+          <EventDetailsText>Start Date: {event.dates.startDate}</EventDetailsText>
           <EventDetailsText>End Date: {event.dates.endDate}</EventDetailsText>
           <EventDetailsText>City: {event.location.city}</EventDetailsText>
           <EventDetailsText>Address: {event.location.adress}</EventDetailsText>
           <EventDetailsText>Type: {event.evenType}</EventDetailsText>
           <EventDetailsText>State: {event.eventState}</EventDetailsText>
           <EventDetailsText>Organizer: {event.organizer}</EventDetailsText>
-          {/* ...existing code... */}
           <NotesSection>
             <NotesLabel>Notes:</NotesLabel>
             <NotesInput
               multiline
               numberOfLines={4}
               placeholder="Add your notes here..."
+              placeholderTextColor={color.white}
               value={currentNote}
               onChangeText={setCurrentNote}
               isValid={isValid}
             />
-            <Button title="Save Note" onPress={handleSaveNote} />
+            <Button label="Add a Note" type={ButtonType.textButton} onPress={handleSaveNote} />
+            <ButtonsContainer>
+              <Button
+                label="Delete Event"
+                type={ButtonType.secondary}
+                onPress={() => {
+                  // router.push('/(tabs)/(home)/editEvent')
+                }}
+              />
+              <Button
+                label="Edit Event"
+                type={ButtonType.primary}
+                onPress={() => {
+                  router.push('/(tabs)/(home)/editEvent')
+                }}
+              />
+            </ButtonsContainer>
           </NotesSection>
           <NotesList>
             {notes.map((note, index) => (
               <NoteItem key={index}>{note}</NoteItem>
             ))}
           </NotesList>
-        </EventContainer>
+        </BaseCard>
       </ScrollContainer>
     </ScreenBase>
   )
 }
 
-const EventContainer = styled.View`
-  padding: 20px;
-  background-color: #f8f8f8;
-  border-radius: 10px;
-  margin-bottom: 20px;
-`
-
 const EventImage = styled.Image`
   width: 100%;
   height: 200px;
-  border-radius: 10px;
+  border-radius: ${spacing.medium}px;
   margin-bottom: 10px;
 `
 
-const EventDescription = styled.Text`
-  font-size: 16px;
+const EventDescription = styled(BodyText)`
   color: #666;
   margin-bottom: 10px;
 `
@@ -116,10 +126,9 @@ const NotesLabel = styled.Text`
 const NotesInput = styled.TextInput<{ isValid: boolean }>`
   height: 100px;
   padding: 10px;
-  border: 1px solid
-    ${(props: { isValid: boolean }) => (props.isValid ? '#ccc' : 'red')};
+  border: 1px solid ${(props: { isValid: boolean }) => (props.isValid ? '#ccc' : 'red')};
   border-radius: 5px;
-  background-color: #fff;
+  background-color: ${color.lightGray};
   color: #333;
   font-size: 16px;
 `

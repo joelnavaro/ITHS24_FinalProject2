@@ -12,12 +12,7 @@ export default function InputFields() {
           <InputField label="PlaneField" value="" placeholder="Text" />
           <InputField label="InputField" value="" placeholder="Text" />
           <Separator size={10} />
-          <InputField
-            label="SearchField"
-            value=""
-            placeholder="Text"
-            icon={IconEnum.search}
-          />
+          <InputField label="SearchField" value="" placeholder="Text" icon={IconEnum.search} />
         </Container>
       </ScrollContainer>
     </ScreenBase>

@@ -14,16 +14,10 @@ export interface ButtonProps extends TouchableOpacityProps {
   type?: ButtonType
 }
 
-export const Button: FC<ButtonProps> = ({
-  label,
-  icon,
-  rounded,
-  type = ButtonType.primary,
-  disabled,
-  ...props
-}) => {
-  const { borderColor, backgroundColor, fontColor, borderBottomWidth } =
-    buttonTypes(disabled ? ButtonType.disable : type)
+export const Button: FC<ButtonProps> = ({ label, icon, rounded, type = ButtonType.primary, disabled, ...props }) => {
+  const { borderColor, backgroundColor, fontColor, borderBottomWidth } = buttonTypes(
+    disabled ? ButtonType.disable : type,
+  )
 
   return (
     <StyledButton
@@ -50,15 +44,12 @@ const StyledButton = styled.TouchableOpacity<{
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: ${(props: { backgroundColor: string }) =>
-    props.backgroundColor};
-  border-width: ${(props: { borderLine: boolean }) =>
-    props.borderLine ? '0' : '1'}px;
+  background-color: ${(props: { backgroundColor: string }) => props.backgroundColor};
+  border-width: ${(props: { borderLine: boolean }) => (props.borderLine ? '0' : '1')}px;
   border-style: solid;
   border-color: ${(props: { borderColor: string }) => props.borderColor};
   border-radius: 20px;
-  border-bottom-width: ${(props: { borderLine: boolean }) =>
-    props.borderLine ? '2' : '1'}px;
+  border-bottom-width: ${(props: { borderLine: boolean }) => (props.borderLine ? '2' : '1')}px;
   padding: ${spacing.medium}px;
 `
 

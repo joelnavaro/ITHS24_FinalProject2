@@ -1,8 +1,7 @@
-import { FC, useCallback, useEffect, useState } from 'react'
+import { FC } from 'react'
 import styled from 'styled-components/native'
 import { color } from '@/theme/color'
 import { Camera } from './icons/Camera'
-import { getUserCredAs, userInfoAsKey } from '@/utils/asyncStorageUtils'
 import { User } from './icons/user'
 import { useAppSelector } from '@/hooks/hooks'
 import { selectAuthState } from '@/state/user/userSlice'
@@ -13,35 +12,14 @@ export const ProfileAvatar: FC<{
   focused?: boolean
 }> = ({ route, size, focused }) => {
   const user = useAppSelector(selectAuthState)
-  const [avatar, setAvatar] = useState<string>()
+  console.log('Profile Avaatar', user.profilePicture)
 
-  const fetchAvatar = useCallback(async () => {
-    if (user.uid !== null) {
-      const result = await getUserCredAs(user.uid)
-      if (result) {
-        setAvatar(result.profilePicture)
-      } else {
-        return
-      }
-    } else {
-      return
-    }
-  }, [user.uid])
-
-  useEffect(() => {
-    fetchAvatar()
-  }, [fetchAvatar])
-
-  return avatar ? (
-    <UserAvatar source={{ uri: avatar }} size={size} />
+  return user.profilePicture !== '' && user.profilePicture !== undefined ? (
+    <UserAvatar source={{ uri: user.profilePicture }} size={size} />
   ) : (
     <IconContainer route={!!route}>
       {route === '(profile)' ? (
-        <User
-          height={30}
-          width={30}
-          color={focused ? color.warning : color.white}
-        />
+        <User height={30} width={30} color={focused ? color.warning : color.white} />
       ) : (
         <Camera height={30} width={30} color={color.lightGray} />
       )}

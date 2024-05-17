@@ -6,20 +6,20 @@ export default function _layout() {
     <Stack
       screenOptions={({ route }) => ({
         ...defaultNavigationOptions,
-        title: 'Home',
+        title: getTitle(route.name),
       })}
     />
   )
 }
 
-const getTabHeaderTitle = (route: string) => {
+const getTitle = (route: string) => {
   switch (route) {
-    case '(library)':
-      return 'Library'
-    case '(search)':
-      return 'Search'
-    case '(profile)':
-      return 'Profile'
+    case 'eventDetails':
+      return 'Event Details'
+    case 'editEvent':
+      return 'EditEvent'
+    case 'createEvent':
+      return 'Create Event'
     default:
       return 'Home'
   }

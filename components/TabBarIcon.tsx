@@ -10,12 +10,7 @@ export const TabBarIcon: FC<{
 }> = ({ icon, color, size, focused }) => {
   return (
     <Container>
-      <Icon
-        icon={icon}
-        color={focused ? color : 'white'}
-        width={size}
-        height={size}
-      />
+      <Icon icon={icon} color={focused ? color : 'white'} width={size} height={size} />
     </Container>
   )
 }

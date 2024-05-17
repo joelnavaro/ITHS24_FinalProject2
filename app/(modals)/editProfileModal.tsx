@@ -12,35 +12,35 @@ import { ButtonType } from '@/utils/types'
 import { useState } from 'react'
 import styled from 'styled-components/native'
 import * as ImagePicker from 'expo-image-picker'
-import { Alert } from 'react-native'
 import { ProfileAvatar } from '@/components/ProfileAvatar'
-import {
-  resetAsyncStorage,
-  saveToAsyncStorage,
-  userInfoAsKey,
-} from '@/utils/asyncStorageUtils'
-import { useAppSelector } from '@/hooks/hooks'
-import { selectAuthState } from '@/state/user/userSlice'
+import { resetAsyncStorage, saveToAsyncStorage } from '@/utils/asyncStorageUtils'
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks'
+import { selectAuthState, setUserCredentials } from '@/state/user/userSlice'
+import { showAlert } from '@/utils/navigationUtils'
+import { color } from '@/theme/color'
+import { LoadingIndicator } from '@/components/LoadingIndicator'
+import { useFirebase } from '@/firebase/hooks/useFirebase'
 
 export default function EditProfileModal() {
   const user = useAppSelector(selectAuthState)
+  const dispatch = useAppDispatch()
+  const { updateUserCredentials } = useFirebase()
   const [form, setForm] = useState({
-    firstName: '',
-    lastName: '',
+    firstName: user.firstName,
+    lastName: user.lastName,
     profilePicture: '',
   })
+  // console.log('edit usermodal', user)
 
   const saveChanges = async () => {
     try {
-      await saveToAsyncStorage(user.uid!, {
+      await saveToAsyncStorage(user.uid, {
         profilePicture: form.profilePicture,
       })
+      await updateUserCredentials(form.firstName, form.lastName, form.profilePicture)
       closeModal()
     } catch (error) {
-      Alert.alert(
-        'Error',
-        `An error occurred while saving the changes. ${error}`,
-      )
+      showAlert(String(error))
     }
   }
   const pickImage = async () => {
@@ -54,19 +54,18 @@ export default function EditProfileModal() {
 
       if (!result.canceled) {
         setForm({ ...form, profilePicture: result.assets[0].uri })
+        dispatch(setUserCredentials({ ...user, profilePicture: form.profilePicture }))
       }
     } catch (error) {
-      Alert.alert(
-        'Error',
-        `An error occurred while selecting the image. ${error}`,
-      )
+      showAlert(String(error))
     }
   }
+
   return (
     <KeyboardView>
       <ModalBase>
         <ModalContainer>
-          <ModalBaseCard>
+          <ModalBaseCard backgroundColor={color.lightGreen}>
             <Title>Edit your profile.</Title>
             <Touchable onPress={closeModal}>
               <Icon icon={IconEnum.xIcon} />
@@ -74,7 +73,7 @@ export default function EditProfileModal() {
           </ModalBaseCard>
 
           <Separator size={20} />
-          <BaseCard>
+          <BaseCard backgroundColor={color.lightGreen}>
             <Section row>
               <ProfileAvatar />
               <Touchable onPress={pickImage}>
@@ -111,12 +110,8 @@ export default function EditProfileModal() {
                 closeModal()
               }}
             />
-            <Button
-              label="Save"
-              type={ButtonType.primary}
-              icon={IconEnum.check}
-              onPress={saveChanges}
-            />
+            <Button label="Save" type={ButtonType.primary} icon={IconEnum.check} onPress={saveChanges} />
+            <LoadingIndicator status={user.authStatus} isModal={true} />
           </ButtonsContainer>
         </ModalContainer>
       </ModalBase>
@@ -132,12 +127,12 @@ export const ModalBaseCard = styled(BaseCard)`
 `
 const MarginText = styled(BodyText)`
   margin-left: ${spacing.small}px;
+  text-decoration: underline;
+  text-underline-offset: 10px;
 `
 const Section = styled.View<{ row: boolean }>`
-  flex-direction: ${(props: { row: boolean }) =>
-    props.row ? 'row' : 'column'};
-  justify-content: ${(props: { row: boolean }) =>
-    props.row ? 'start' : 'center'};
+  flex-direction: ${(props: { row: boolean }) => (props.row ? 'row' : 'column')};
+  justify-content: ${(props: { row: boolean }) => (props.row ? 'start' : 'center')};
   align-items: ${(props: { row: boolean }) => (props.row ? 'center' : 'start')};
   margin: ${spacing.small}px;
 `

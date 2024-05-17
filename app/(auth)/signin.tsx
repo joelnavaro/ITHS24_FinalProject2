@@ -9,11 +9,11 @@ import { Button } from '@/components/Button'
 import { ButtonType } from '@/utils/types'
 import { router } from 'expo-router'
 import { IconEnum } from '@/components/icons/Icons'
-import { Alert } from 'react-native'
 import { KeyboardView } from '@/components/KeyboardView'
 import { Separator } from '@/components/Separator'
 import { CenteredBodyText, CenteredTitle } from '.'
 import { useAuth } from '@/firebase/hooks/useAuth'
+import { showAlert } from '@/utils/navigationUtils'
 
 export default function Signin() {
   const { signIn } = useAuth()
@@ -24,14 +24,14 @@ export default function Signin() {
 
   const handleSubmit = async () => {
     if (form.email === '' || form.password === '') {
-      Alert.alert('Sign In.', 'Please fill in all fields!')
+      showAlert('Please fill in all fields.')
       return
     } else {
       try {
         await signIn(form.email, form.password)
         router.replace('/(tabs)/')
       } catch (error) {
-        console.log('SignIn screen', error)
+        showAlert(String(error))
       }
     }
   }
@@ -53,9 +53,7 @@ export default function Signin() {
           <Separator />
 
           <BaseCard backgroundColor={color.seaShell}>
-            <CenteredBodyText bold>
-              Log in with email and Password!
-            </CenteredBodyText>
+            <CenteredBodyText bold>Log in with email and Password!</CenteredBodyText>
             <InputField
               label="Email"
               icon={IconEnum.letter}

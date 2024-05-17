@@ -9,14 +9,15 @@ import { Button } from '@/components/Button'
 import { ButtonType } from '@/utils/types'
 import { router } from 'expo-router'
 import { IconEnum } from '@/components/icons/Icons'
-import { Alert } from 'react-native'
 import { KeyboardView } from '@/components/KeyboardView'
 import { Separator } from '@/components/Separator'
 import { CenteredBodyText, CenteredTitle } from '.'
 import { useAuth } from '@/firebase/hooks/useAuth'
+import { showAlert } from '@/utils/navigationUtils'
+import { LoadingIndicator } from '@/components/LoadingIndicator'
 
 export default function Signup() {
-  const { signUp } = useAuth()
+  const { signUp, authState } = useAuth()
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
@@ -26,14 +27,14 @@ export default function Signup() {
 
   const handleSubmit = async () => {
     if (form.email === '' || form.password === '') {
-      Alert.alert('Sign up.', 'Please fill in all fields!')
+      showAlert('Please fill in all fields.')
       return
     } else {
       try {
         await signUp(form.firstName, form.lastName, form.email, form.password)
         router.replace('/(tabs)/')
       } catch (error) {
-        console.log('SignUp screen', error)
+        showAlert(String(error))
       }
     }
   }
@@ -42,7 +43,7 @@ export default function Signup() {
       <ScreenBase backgroundColor={color.primary}>
         <ScrollContainer backgroundColor={color.primary}>
           <Separator />
-
+          <LoadingIndicator status={authState.authStatus} isModal={false} />
           <BaseCard backgroundColor={color.primary}>
             <CenteredTitle color={color.white} bold size={spacing.xlarge}>
               Sign Up.
@@ -55,9 +56,7 @@ export default function Signup() {
           <Separator size={20} />
 
           <BaseCard backgroundColor={color.seaShell}>
-            <CenteredBodyText bold>
-              Sign up with email and Password!
-            </CenteredBodyText>
+            <CenteredBodyText bold>Sign up with email and Password!</CenteredBodyText>
             <InputField
               label="First Name"
               icon={IconEnum.user}

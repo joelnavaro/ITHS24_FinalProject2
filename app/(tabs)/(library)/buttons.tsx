@@ -15,11 +15,7 @@ export default function Buttons() {
           <Button label="Secondary Button" type={ButtonType.secondary} />
           <Separator size={10} />
 
-          <Button
-            label="Icon Button"
-            type={ButtonType.success}
-            icon={IconEnum.star}
-          />
+          <Button label="Icon Button" type={ButtonType.success} icon={IconEnum.star} />
           <Separator size={10} />
 
           <Button label="Disabled Button" type={ButtonType.disable} />
@@ -29,16 +25,8 @@ export default function Buttons() {
           <Separator size={10} />
 
           <ButtonsContainer>
-            <Button
-              label="Button 1"
-              type={ButtonType.primary}
-              icon={IconEnum.check}
-            />
-            <Button
-              label="Button 2"
-              type={ButtonType.secondary}
-              icon={IconEnum.check}
-            />
+            <Button label="Button 1" type={ButtonType.primary} icon={IconEnum.check} />
+            <Button label="Button 2" type={ButtonType.secondary} icon={IconEnum.check} />
           </ButtonsContainer>
           <Separator size={10} />
 
