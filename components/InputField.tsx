@@ -52,10 +52,7 @@ export const InputField: FC<InputFieldProps> = ({
               label === 'Password' && setShowPassword(!showPassword)
             }}
           >
-            <Icon
-              icon={icon}
-              color={value || isFocused ? color.darkSlate : color.fernGreen}
-            />
+            <Icon icon={icon} color={value || isFocused ? color.darkSlate : color.fernGreen} />
           </TouchableOpacity>
         )}
       </InputContainer>
@@ -71,12 +68,9 @@ const InputContainer = styled.View<{ hasValue: boolean; error: boolean }>`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  color: ${(props: { hasValue: boolean }) =>
-    props.hasValue ? color.lightGreen : color.darkSlate};
+  color: ${(props: { hasValue: boolean }) => (props.hasValue ? color.lightGreen : color.darkSlate)};
   background-color: ${color.lightGray};
-  border: 1px solid
-    ${(props: { error: boolean }) =>
-      props.error ? color.error : color.darkSlate};
+  border: 1px solid ${(props: { error: boolean }) => (props.error ? color.error : color.darkSlate)};
   border-radius: ${spacing.medium}px;
   padding: ${spacing.xsmall}px ${spacing.medium}px;
   margin-top: ${spacing.xsmall}px;

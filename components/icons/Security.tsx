@@ -1,12 +1,7 @@
 import Svg, { Path } from 'react-native-svg'
 import { IconInterface } from './types'
 
-export const Security = ({
-  height,
-  width,
-  color = '#000',
-  props,
-}: IconInterface) => (
+export const Security = ({ height, width, color = '#000', props }: IconInterface) => (
   <Svg width={width} height={height} fill="none" {...props}>
     <Path
       fill={color}

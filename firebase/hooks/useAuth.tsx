@@ -1,40 +1,17 @@
-import { authFirebase, db } from '../types'
+import { FirebaseErrorType, REQUEST_STATUS, UserCredentials, authFirebase, db } from '../types'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
-import {
-  resetUserCredentials,
-  selectAuthState,
-  setUserCredentials,
-} from '@/state/user/userSlice'
-import { RootState, persistor } from '@/state/store'
+import { resetUserCredentials, selectAuthState, setUserCredentials, updateAuthStatus } from '@/state/user/userSlice'
+import { persistor } from '@/state/store'
 import { router } from 'expo-router'
-type UserCredentials = {
-  uid: string
-  firstName: string
-  lastName: string
-  email: string
-}
-type FirebaseErrorType = {
-  code: string
-  message: string
-}
 
 export const useAuth = () => {
-  const userId = useAppSelector((state: RootState) => state.user.uid)
   const authState = useAppSelector(selectAuthState)
   const dispatch = useAppDispatch()
 
-  const signUp = async (
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string,
-  ) => {
+  const signUp = async (firstName: string, lastName: string, email: string, password: string) => {
     try {
-      const userCredential = await authFirebase.createUserWithEmailAndPassword(
-        email,
-        password,
-      )
-
+      dispatch(updateAuthStatus({ status: REQUEST_STATUS.LOADING }))
+      const userCredential = await authFirebase.createUserWithEmailAndPassword(email, password)
       const credentials: UserCredentials = {
         uid: userCredential.user.uid,
         firstName,
@@ -44,36 +21,38 @@ export const useAuth = () => {
       dispatch(
         setUserCredentials({
           uid: userCredential.user.uid,
-          name: firstName,
+          firstName,
           lastName,
           email,
+          profilePicture: '',
         }),
       )
-      createUserCollection(userCredential.user.uid, credentials)
+      await createUserCollection(userCredential.user.uid, credentials)
+      dispatch(updateAuthStatus({ status: REQUEST_STATUS.IDLE }))
     } catch (error) {
       const firebaseError = error as FirebaseErrorType
+      dispatch(updateAuthStatus({ status: REQUEST_STATUS.IDLE }))
       throw new Error(firebaseError.message)
     }
   }
   const signIn = async (email: string, password: string) => {
     try {
-      const userCredential = await authFirebase.signInWithEmailAndPassword(
-        email,
-        password,
-      )
+      dispatch(updateAuthStatus({ status: REQUEST_STATUS.LOADING }))
+      const userCredential = await authFirebase.signInWithEmailAndPassword(email, password)
 
-      const credentials = await getUserCredentialsWithEmail(
-        userCredential.user.uid,
-      )
+      const credentials = await getUserCredentialsWithEmail(userCredential.user.uid)
       dispatch(
         setUserCredentials({
+          ...authState,
           uid: userCredential.user.uid,
-          name: credentials.firstName,
+          firstName: credentials.firstName,
           lastName: credentials.lastName,
           email: credentials.email,
         }),
       )
+      dispatch(updateAuthStatus({ status: REQUEST_STATUS.IDLE }))
     } catch (error) {
+      dispatch(updateAuthStatus({ status: REQUEST_STATUS.IDLE }))
       const firebaseError = error as FirebaseErrorType
       throw new Error(firebaseError.message)
     }
@@ -88,31 +67,34 @@ export const useAuth = () => {
     }
   }
 
-  const createUserCollection = async (
-    userId: string,
-    credentials: UserCredentials,
-  ) => {
+  const createUserCollection = async (userId: string, credentials: UserCredentials) => {
     try {
+      dispatch(updateAuthStatus({ status: REQUEST_STATUS.LOADING }))
       const docRef = db.doc(userId)
       const doc = await docRef.get()
       if (!doc.exists) {
         await docRef.set(credentials)
       }
+      dispatch(updateAuthStatus({ status: REQUEST_STATUS.IDLE }))
     } catch (error) {
+      dispatch(updateAuthStatus({ status: REQUEST_STATUS.IDLE }))
       const firebaseError = error as FirebaseErrorType
       throw new Error(firebaseError.message)
     }
   }
   const logOut = async () => {
     try {
+      dispatch(updateAuthStatus({ status: REQUEST_STATUS.LOADING }))
       const currentUser = authFirebase.currentUser
       if (currentUser) {
         await authFirebase.signOut()
         dispatch(resetUserCredentials())
         persistor.purge()
       }
+      dispatch(updateAuthStatus({ status: REQUEST_STATUS.IDLE }))
       router.replace('/(auth)/')
     } catch (error) {
+      dispatch(updateAuthStatus({ status: REQUEST_STATUS.IDLE }))
       const firebaseError = error as FirebaseErrorType
       throw new Error(firebaseError.message)
     }

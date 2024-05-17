@@ -12,3 +12,41 @@ export interface UserAppCredentials {
   lastName: string
   profilePicture: string
 }
+
+export interface EventType {
+  id: string
+  title: string
+  image: string
+  description: string
+  dates: {
+    startDate: string
+    endDate: string
+  }
+  location: {
+    city: string
+    address: string
+  }
+  eventType: string
+  eventState: string
+  organizer: string
+  userAdditions: string[]
+}
+
+export const initialEventForm: EventType = {
+  id: '',
+  title: '',
+  image: '',
+  description: '',
+  dates: {
+    startDate: '',
+    endDate: '',
+  },
+  location: {
+    city: '',
+    address: '',
+  },
+  eventType: '',
+  eventState: '',
+  organizer: '',
+  userAdditions: [],
+}

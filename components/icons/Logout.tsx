@@ -1,12 +1,7 @@
 import Svg, { Path } from 'react-native-svg'
 import { IconInterface } from './types'
 
-export const Logout = ({
-  height,
-  width,
-  color = '#000',
-  props,
-}: IconInterface) => (
+export const Logout = ({ height, width, color = '#000', props }: IconInterface) => (
   <Svg width={24} height={24} fill="none" {...props}>
     <Path
       fill={color}

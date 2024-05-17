@@ -3,6 +3,7 @@ import { fontFamily, fontSize } from '../theme/font'
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
 import { IconEnum } from '@/components/icons/Icons'
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack'
+import Toast from 'react-native-toast-message'
 
 export const defaultNavigationOptions: NativeStackNavigationOptions = {
   headerStyle: {
@@ -108,4 +109,21 @@ export const filterPaths = (currentScreen: string) => {
     excludedPaths = false
   }
   return excludedPaths
+}
+
+export const showAlert = (message: string) => {
+  const truncatedMessage = message.length > 200 ? `${message.substring(0, 200)}...` : message
+
+  Toast.show({
+    type: 'error',
+    position: 'bottom',
+    text1: 'System Alert!',
+    text2: truncatedMessage,
+    visibilityTime: 4000,
+    autoHide: true,
+    topOffset: 30,
+    bottomOffset: 40,
+    text1Style: { textAlign: 'center' },
+    text2Style: { textAlign: 'center', fontSize: 20, color: color.lightGray }, // Change fontSize and color here
+  })
 }

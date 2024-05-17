@@ -3,7 +3,10 @@ import { BarCard } from '@/components/BaseCard'
 import { EventsList } from '@/components/EventsList'
 import { ScreenBase } from '@/components/ScreenBase'
 import { Separator } from '@/components/Separator'
+import { useAppSelector } from '@/hooks/hooks'
+import { selectCollection } from '@/state/events/eventSlice'
 import { color } from '@/theme/color'
+import { router } from 'expo-router'
 import { useState } from 'react'
 
 const enum MenuState {
@@ -13,10 +16,9 @@ const enum MenuState {
 }
 
 export default function Home() {
+  const events = useAppSelector(selectCollection)
+  console.log('home events', events.length)
   const [menuState, setMenuState] = useState(MenuState.day)
-  const day: string[] = ['a', 'b', 'c']
-  const week: string[] = ['e', 'f', 'g']
-  const month: string[] = ['h', 'i', 'j']
   return (
     <ScreenBase backgroundColor={color.lightGray}>
       <Separator size={5} />
@@ -40,22 +42,13 @@ export default function Home() {
           }}
         />
         <BarButton
-          label="This Year"
+          label="Create Event"
           onPress={() => {
-            // setMenuState(MenuState.month)
+            router.push('/(tabs)/(home)/createEvent')
           }}
         />
       </BarCard>
-
-      <EventsList
-        data={
-          menuState === MenuState.week
-            ? week
-            : menuState === MenuState.month
-              ? month
-              : day
-        }
-      />
+      <EventsList data={events} />
     </ScreenBase>
   )
 }

@@ -17,7 +17,7 @@ export const ProfileBar: FC<{ canEdit?: boolean }> = ({ canEdit }) => {
     <ProfileCard>
       <ProfileAvatar />
       <Section>
-        <Title>{user.name !== '' ? user.name : 'Profile Name.'}</Title>
+        <Title>{user.firstName !== '' ? user.firstName : 'Profile Name.'}</Title>
         <BodyText>{user.email !== '' ? user.email : 'User email.'}</BodyText>
       </Section>
       {canEdit && (

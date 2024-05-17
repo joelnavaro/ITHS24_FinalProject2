@@ -2,21 +2,21 @@ import { FlatList } from 'react-native'
 import { FC } from 'react'
 import { Separator } from './Separator'
 import { EventCard } from './EventCard'
+import { EventType } from '@/utils/types'
 
-export const EventsList: FC<{ data: string[] }> = ({ data }) => {
+export const EventsList: FC<{ data: EventType[] }> = ({ data }) => {
   return (
     <FlatList
       data={data}
-      keyExtractor={(item) => item}
+      keyExtractor={(event) => event.id}
       renderItem={({ item }) => (
-        // <EventCard value1={item} value2={item} value3={item} />
         <EventCard
-          title="Orchesta Concert"
-          image="https://picsum.photos/200/300"
-          endDate="07.12.2024"
-          typeOfEvent="Professional"
-          eventState="Active"
-          location="Stockholm"
+          title={item.title}
+          image={item.image}
+          endDate={item.dates.endDate}
+          typeOfEvent={item.eventType}
+          eventState={item.eventState}
+          location={item.location.city}
         />
       )}
       ItemSeparatorComponent={Separator}

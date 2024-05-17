@@ -24,17 +24,9 @@ export default function WelcomePage() {
       <Separator size={100} />
       <BaseCard backgroundColor={color.seaShell}>
         <BodyText>Sign In into your account!</BodyText>
-        <PaddingButton
-          label="Sign In"
-          type={ButtonType.primary}
-          onPress={() => router.push('/signin')}
-        />
+        <PaddingButton label="Sign In" type={ButtonType.primary} onPress={() => router.push('/signin')} />
         <BodyText>Create an account!</BodyText>
-        <PaddingButton
-          label="Sign Up"
-          type={ButtonType.secondary}
-          onPress={() => router.push('/signup')}
-        />
+        <PaddingButton label="Sign Up" type={ButtonType.secondary} onPress={() => router.push('/signup')} />
       </BaseCard>
     </StyledScrollContainer>
   )

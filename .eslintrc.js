@@ -6,5 +6,7 @@ module.exports = {
   plugins: ['prettier'],
   rules: {
     'prettier/prettier': 'error',
+    'prefer-template': 'error',
+    // 'max-len': ['error', { code: 120 }],
   },
 }

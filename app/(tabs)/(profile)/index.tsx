@@ -29,19 +29,11 @@ export default function Profile() {
               setRerender(!rerender)
             }}
           />
-          <Button
-            label="Preferences"
-            type={ButtonType.textButton}
-            onPress={() => {}}
-          />
+          <Button label="Preferences" type={ButtonType.textButton} onPress={() => {}} />
         </BaseCard>
         <Separator />
         <BaseCard backgroundColor={color.white}>
-          <Button
-            label="Delete acount"
-            type={ButtonType.textButton}
-            onPress={() => {}}
-          />
+          <Button label="Delete acount" type={ButtonType.textButton} onPress={() => {}} />
         </BaseCard>
       </ScrollContainer>
     </ScreenBase>
