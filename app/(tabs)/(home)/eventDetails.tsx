@@ -4,7 +4,7 @@ import { ScreenBase, ScrollContainer } from '@/components/ScreenBase'
 import { BodyText, Title } from '@/components/Text'
 import { color } from '@/theme/color'
 import { spacing } from '@/theme/spacing'
-import { ButtonType } from '@/utils/types'
+import { ButtonType, EventType } from '@/utils/types'
 import { router } from 'expo-router'
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
@@ -23,7 +23,8 @@ export default function EventDetails() {
       setIsValid(true)
     }
   }
-  const event = {
+  const event: EventType = {
+    id: '1',
     title: 'Event Title',
     image: 'https://picsum.photos/200/300',
     description: 'Event Description',
@@ -33,12 +34,12 @@ export default function EventDetails() {
     },
     location: {
       city: 'City',
-      adress: 'Adress',
+      address: 'Adress',
     },
-    evenType: 'Type of Event',
+    eventType: 'Type of Event',
     eventState: 'State',
     organizer: 'Organizer',
-    userSections: {},
+    userAdditions: [],
   }
   return (
     <ScreenBase backgroundColor={color.lightGray}>
@@ -50,8 +51,8 @@ export default function EventDetails() {
           <EventDetailsText>Start Date: {event.dates.startDate}</EventDetailsText>
           <EventDetailsText>End Date: {event.dates.endDate}</EventDetailsText>
           <EventDetailsText>City: {event.location.city}</EventDetailsText>
-          <EventDetailsText>Address: {event.location.adress}</EventDetailsText>
-          <EventDetailsText>Type: {event.evenType}</EventDetailsText>
+          <EventDetailsText>Address: {event.location.address}</EventDetailsText>
+          <EventDetailsText>Type: {event.eventType}</EventDetailsText>
           <EventDetailsText>State: {event.eventState}</EventDetailsText>
           <EventDetailsText>Organizer: {event.organizer}</EventDetailsText>
           <NotesSection>
