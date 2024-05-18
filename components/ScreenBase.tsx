@@ -22,7 +22,6 @@ export const SpaceEvenly = styled.View<{ transparent?: boolean }>`
   background-color: ${(props: { transparent: boolean }) => (props.transparent ? 'transparent' : `${color.white}`)};
 `
 export const ScrollContainer = styled.ScrollView<{ backgroundColor?: string }>`
-  flex: 1;
   background-color: ${(props: { backgroundColor: string }) =>
-    props.backgroundColor ? props.backgroundColor : color.white};
+    props.backgroundColor ? props.backgroundColor : 'transparent'};
 `

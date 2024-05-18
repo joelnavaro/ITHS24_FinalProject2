@@ -12,9 +12,10 @@ export const ProfileAvatar: FC<{
   focused?: boolean
 }> = ({ route, size, focused }) => {
   const user = useAppSelector(selectAuthState)
-  console.log('Profile Avaatar', user.profilePicture)
+  const hasProfilePicture =
+    user.profilePicture !== '' && user.profilePicture !== undefined && user.profilePicture !== null
 
-  return user.profilePicture !== '' && user.profilePicture !== undefined ? (
+  return hasProfilePicture ? (
     <UserAvatar source={{ uri: user.profilePicture }} size={size} />
   ) : (
     <IconContainer route={!!route}>

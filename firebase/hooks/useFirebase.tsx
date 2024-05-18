@@ -6,9 +6,10 @@ import { router } from 'expo-router'
 import { fetchEventsAsync } from '@/state/events/actions'
 import { EventType } from '@/utils/types'
 import { setUserCredentials, updateAuthStatus } from '@/state/user/userSlice'
-import { selectRequestState } from '@/state/events/eventSlice'
+import { selectCollection, selectRequestState, updateRequestStatus } from '@/state/events/eventSlice'
 
 export const useFirebase = () => {
+  const events = useAppSelector(selectCollection)
   const requestState = useAppSelector(selectRequestState)
   const user = useAppSelector((state: RootState) => state.user)
   const adminDoc = db.doc(user.uid)
@@ -58,10 +59,15 @@ export const useFirebase = () => {
 
   const saveEvent = async (event: EventType) => {
     try {
+      dispatch(updateRequestStatus({ status: REQUEST_STATUS.LOADING }))
       await eventCollection.add(event)
+      dispatch(updateRequestStatus({ status: REQUEST_STATUS.LOADING }))
       router.push('../')
     } catch (error) {
       console.error('Error adding document: ', error)
+      const firebaseError = error as FirebaseErrorType
+      dispatch(updateAuthStatus({ status: REQUEST_STATUS.IDLE }))
+      throw new Error(firebaseError.message)
     }
   }
   const getEvents = async () => {
@@ -109,6 +115,7 @@ export const useFirebase = () => {
   }
 
   return {
+    events,
     requestState,
     saveEvent,
     getEvents,

@@ -20,8 +20,16 @@ export const eventSlice = createSlice({
   name: 'event',
   initialState,
   reducers: {
-    addEvent: (state, { payload }: PayloadAction<{ event: EventType }>) => {
-      state.eventsCollection.push(payload.event)
+    addEvent: (state, { payload }: PayloadAction<EventType>) => {
+      state.eventsCollection.push(payload)
+    },
+    updateRequestStatus: (state, { payload }: PayloadAction<{ status: REQUEST_STATUS; error?: string }>) => {
+      state.requestStatus = payload.status
+      if (payload.error) {
+        state.errorMessage = payload.error
+      } else {
+        state.errorMessage = null
+      }
     },
   },
   extraReducers(builder) {
@@ -43,6 +51,6 @@ export const eventSlice = createSlice({
 export const selectCollection = (state: RootState) => state.events.eventsCollection
 export const selectRequestState = (state: RootState) => state.events.requestStatus
 
-export const { addEvent } = eventSlice.actions
+export const { addEvent, updateRequestStatus } = eventSlice.actions
 
 export default eventSlice.reducer

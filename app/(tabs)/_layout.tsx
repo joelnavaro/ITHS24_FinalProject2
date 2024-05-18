@@ -29,15 +29,15 @@ export default function TabLayout() {
           <Tabs.Screen name="(aScreen)" />
           <Tabs.Screen
             name="(home)"
-            options={{
-              href: null,
-            }}
+            // options={{
+            //   href: null,
+            // }}
           />
           <Tabs.Screen
             name="(search)"
-            options={{
-              href: null,
-            }}
+            // options={{
+            //   href: null,
+            // }}
           />
           <Tabs.Screen name="(profile)" />
           <Tabs.Screen name="(library)" />
