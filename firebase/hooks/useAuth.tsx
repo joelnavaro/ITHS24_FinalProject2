@@ -17,6 +17,7 @@ export const useAuth = () => {
         firstName,
         lastName,
         email,
+        profilePicture: '',
       }
       dispatch(
         setUserCredentials({
@@ -48,6 +49,7 @@ export const useAuth = () => {
           firstName: credentials.firstName,
           lastName: credentials.lastName,
           email: credentials.email,
+          profilePicture: credentials.profilePicture,
         }),
       )
       dispatch(updateAuthStatus({ status: REQUEST_STATUS.IDLE }))

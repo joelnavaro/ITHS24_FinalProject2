@@ -26,6 +26,7 @@ export interface UserCredentials {
   firstName: string
   lastName: string
   email: string
+  profilePicture: string
 }
 export const firestoreModule = firestore()
 export const authFirebase = auth()
