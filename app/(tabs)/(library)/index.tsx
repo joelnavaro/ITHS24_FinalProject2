@@ -44,6 +44,14 @@ export default function Library() {
           }}
         />
         <Separator />
+        <Button
+          label="Various components"
+          type={ButtonType.primary}
+          onPress={() => {
+            router.push('widgets')
+          }}
+        />
+        <Separator />
       </ScrollContainer>
     </ScreenBase>
   )

@@ -14,9 +14,10 @@ import { Separator } from '@/components/Separator'
 import { CenteredBodyText, CenteredTitle } from '.'
 import { useAuth } from '@/firebase/hooks/useAuth'
 import { showAlert } from '@/utils/navigationUtils'
+import { LoadingIndicator } from '@/components/LoadingIndicator'
 
 export default function Signin() {
-  const { signIn } = useAuth()
+  const { signIn, authState } = useAuth()
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -87,6 +88,7 @@ export default function Signin() {
             />
           </BaseCard>
         </ScrollContainer>
+        <LoadingIndicator status={authState.authStatus} isModal={false} />
       </ScreenBase>
     </KeyboardView>
   )
