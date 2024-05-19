@@ -3,6 +3,7 @@ import { BarCard } from '@/components/BaseCard'
 import { EventsList } from '@/components/EventsList'
 import { ScreenBase } from '@/components/ScreenBase'
 import { Separator } from '@/components/Separator'
+import { useFirebase } from '@/firebase/hooks/useFirebase'
 import { useAppSelector } from '@/hooks/hooks'
 import { selectCollection } from '@/state/events/eventSlice'
 import { color } from '@/theme/color'
@@ -12,7 +13,7 @@ import { router } from 'expo-router'
 import { useState } from 'react'
 
 export default function Home() {
-  const events = useAppSelector(selectCollection)
+  const { events } = useFirebase()
   const [menuState, setMenuState] = useState(BarMenuState.day)
 
   const filterEvents = (events: EventType[]) => {

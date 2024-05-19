@@ -14,6 +14,25 @@ import { showAlert } from '@/utils/navigationUtils'
 import { LoadingIndicator } from '@/components/LoadingIndicator'
 import { PicturePicker } from '@/components/PicturePicker'
 
+type EventType = {
+  id: string
+  title: string
+  image: string
+  description: string
+  dates: {
+    startDate: string
+    endDate: string
+  }
+  location: {
+    city: string
+    address: string
+  }
+  eventType: string
+  eventState: string
+  organizer: string
+  userAdditions: string[]
+}
+
 export default function EditEventDetails() {
   const { requestState, events, updateEvent } = useFirebase()
   const { id } = useLocalSearchParams<{ id: string }>()
@@ -22,7 +41,7 @@ export default function EditEventDetails() {
     return event
   }
   const edit = findEvent()
-  const [event, setEvent] = useState({
+  const [event, setEvent] = useState<EventType>({
     id: edit?.id || '',
     title: edit?.title || '',
     image: edit?.image || '',
@@ -50,12 +69,28 @@ export default function EditEventDetails() {
     }
   }
 
-  const handleChange = (field: keyof Event | string, value: string) => {
-    setEvent((prevEvent) => ({
-      ...prevEvent,
-      [field]: value,
-    }))
+  const handleChange = (field: keyof EventType | string, value: string) => {
+    setEvent((prevEvent) => {
+      const fields = field.split('.')
+      if (fields.length === 1) {
+        return {
+          ...prevEvent,
+          [fields[0]]: value,
+        }
+      } else if (fields.length === 2) {
+        const [first, second] = fields
+        return {
+          ...prevEvent,
+          [first]: {
+            ...(prevEvent[first as keyof EventType] as Record<string, unknown>),
+            [second]: value,
+          },
+        }
+      }
+      return prevEvent
+    })
   }
+
   const editStartDate = useCallback((value: string) => {
     setEvent((prevState) => ({
       ...prevState,
@@ -114,7 +149,7 @@ export default function EditEventDetails() {
         <InputDate label="Insert new end date" onChange={editEndDate} />
 
         <PicturePicker setImage={(image: string) => handleChange('image', image)} />
-        <Button label="Save Event" type={ButtonType.primary} onPress={handleSave} />
+        <Button label="Save Editing" type={ButtonType.primary} onPress={handleSave} />
       </ScrollContainer>
       <LoadingIndicator status={requestState} isModal={false} />
     </ScreenBase>
