@@ -25,7 +25,7 @@ const Container = styled.View<{ type: boolean; status: REQUEST_STATUS }>`
 `
 const StyledActivityIndicator = styled(ActivityIndicator).attrs((props: { deleteStatus: string }) => ({
   size: 'large',
-  color: '#647e51',
+  color: color.primary,
   animating: props.deleteStatus === REQUEST_STATUS.LOADING ? true : false,
 }))`
   padding: ${spacing.medium}px;

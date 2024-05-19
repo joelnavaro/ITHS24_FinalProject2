@@ -27,7 +27,7 @@ export interface UserCredentials {
   lastName: string
   email: string
 }
-
+export const firestoreModule = firestore()
 export const authFirebase = auth()
 export const db = firestore().collection(rootCollection)
 export const usersList = db.doc(usersCollection)

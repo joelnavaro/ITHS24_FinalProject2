@@ -1,59 +1,63 @@
 import { BaseCard } from '@/components/BaseCard'
 import { Button, ButtonsContainer } from '@/components/Button'
+import { NotesContainer } from '@/components/NotesContainer'
 import { ScreenBase, ScrollContainer } from '@/components/ScreenBase'
 import { BodyText, Title } from '@/components/Text'
+import { IconEnum } from '@/components/icons/Icons'
+import { useFirebase } from '@/firebase/hooks/useFirebase'
 import { color } from '@/theme/color'
 import { spacing } from '@/theme/spacing'
+import { formatDate } from '@/utils/dateUtils'
+import { showAlert } from '@/utils/navigationUtils'
 import { ButtonType } from '@/utils/types'
-import { router } from 'expo-router'
+import { router, useLocalSearchParams } from 'expo-router'
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
 
 export default function EventDetails() {
-  const [notes, setNotes] = useState<string[]>([])
+  const { events, deleteNote, addNote, deleteEvent } = useFirebase()
+  const { id } = useLocalSearchParams<{ id: string }>()
   const [currentNote, setCurrentNote] = useState('')
   const [isValid, setIsValid] = useState(true)
 
-  const handleSaveNote = () => {
+  const findEvent = () => {
+    const event = events.find((event) => event.id === id)
+    return event
+  }
+  const fbEvent = findEvent()
+
+  const handleSaveNote = async () => {
     if (currentNote.trim() === '') {
       setIsValid(false)
     } else {
-      setNotes((prevNotes) => [...prevNotes, currentNote])
+      await addNote(currentNote, id!)
       setCurrentNote('')
       setIsValid(true)
     }
   }
-  const event = {
-    title: 'Event Title',
-    image: 'https://picsum.photos/200/300',
-    description: 'Event Description',
-    dates: {
-      startDate: '2021-10-10',
-      endDate: '2021-10-11',
-    },
-    location: {
-      city: 'City',
-      adress: 'Adress',
-    },
-    evenType: 'Type of Event',
-    eventState: 'State',
-    organizer: 'Organizer',
-    userSections: {},
+  const handleDeleteEvent = async () => {
+    try {
+      await deleteEvent(id!)
+      router.push('/(tabs)/(home)/')
+    } catch (error) {
+      showAlert(String(error))
+    }
   }
   return (
     <ScreenBase backgroundColor={color.lightGray}>
       <ScrollContainer backgroundColor={'transparent'}>
         <BaseCard backgroundColor={color.white}>
-          <Title>{event.title}</Title>
-          <EventImage source={{ uri: event.image }} />
-          <EventDescription>{event.description}</EventDescription>
-          <EventDetailsText>Start Date: {event.dates.startDate}</EventDetailsText>
-          <EventDetailsText>End Date: {event.dates.endDate}</EventDetailsText>
-          <EventDetailsText>City: {event.location.city}</EventDetailsText>
-          <EventDetailsText>Address: {event.location.adress}</EventDetailsText>
-          <EventDetailsText>Type: {event.evenType}</EventDetailsText>
-          <EventDetailsText>State: {event.eventState}</EventDetailsText>
-          <EventDetailsText>Organizer: {event.organizer}</EventDetailsText>
+          <Title>{fbEvent && fbEvent.title}</Title>
+          <EventImage source={{ uri: fbEvent && fbEvent.image }} />
+          <EventDescription>{fbEvent && fbEvent.description}</EventDescription>
+          <EventDetailsText>Start Date: {fbEvent && formatDate(Number(fbEvent.dates.startDate))}</EventDetailsText>
+          <EventDetailsText>End Date: {fbEvent && formatDate(Number(fbEvent.dates.endDate))}</EventDetailsText>
+          <EventDetailsText>City: {fbEvent && fbEvent.location.city}</EventDetailsText>
+          <EventDetailsText>Address: {fbEvent && fbEvent.location.address}</EventDetailsText>
+          <EventDetailsText>Type: {fbEvent && fbEvent.eventType}</EventDetailsText>
+          <EventDetailsText>State: {fbEvent && fbEvent.eventState}</EventDetailsText>
+          <EventDetailsText>Organizer: {fbEvent && fbEvent.organizer}</EventDetailsText>
+          <NotesContainer content={(fbEvent && fbEvent.userAdditions) || []} eventId={id!} onPress={deleteNote} />
           <NotesSection>
             <NotesLabel>Notes:</NotesLabel>
             <NotesInput
@@ -65,29 +69,27 @@ export default function EventDetails() {
               onChangeText={setCurrentNote}
               isValid={isValid}
             />
-            <Button label="Add a Note" type={ButtonType.textButton} onPress={handleSaveNote} />
+            <Button label="Add a Note" type={ButtonType.textButton} onPress={async () => await handleSaveNote()} />
             <ButtonsContainer>
               <Button
                 label="Delete Event"
                 type={ButtonType.secondary}
-                onPress={() => {
-                  // router.push('/(tabs)/(home)/editEvent')
-                }}
+                icon={IconEnum.close}
+                onPress={handleDeleteEvent}
               />
               <Button
                 label="Edit Event"
                 type={ButtonType.primary}
+                icon={IconEnum.edit}
                 onPress={() => {
-                  router.push('/(tabs)/(home)/editEvent')
+                  router.push({
+                    pathname: '/(tabs)/(home)/editEvent',
+                    params: { id: id },
+                  })
                 }}
               />
             </ButtonsContainer>
           </NotesSection>
-          <NotesList>
-            {notes.map((note, index) => (
-              <NoteItem key={index}>{note}</NoteItem>
-            ))}
-          </NotesList>
         </BaseCard>
       </ScrollContainer>
     </ScreenBase>
@@ -131,13 +133,4 @@ const NotesInput = styled.TextInput<{ isValid: boolean }>`
   background-color: ${color.lightGray};
   color: #333;
   font-size: 16px;
-`
-const NotesList = styled.View`
-  margin-top: 20px;
-`
-
-const NoteItem = styled.Text`
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 10px;
 `

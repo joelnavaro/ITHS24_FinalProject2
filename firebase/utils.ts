@@ -1,5 +1,3 @@
-//create the Async firebase functions here
-
 import { AsyncImageType } from './types'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 

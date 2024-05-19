@@ -89,7 +89,6 @@ export const getHeaderTitle = (routeName: string) => {
     default:
       return 'FAVRAPP'
   }
-  // return routeName === "signin" ? "Sign in" : "Sign up";
 }
 
 export const filterPaths = (currentScreen: string) => {
@@ -124,6 +123,6 @@ export const showAlert = (message: string) => {
     topOffset: 30,
     bottomOffset: 40,
     text1Style: { textAlign: 'center' },
-    text2Style: { textAlign: 'center', fontSize: 20, color: color.lightGray }, // Change fontSize and color here
+    text2Style: { textAlign: 'center', fontSize: 20, color: color.lightGray },
   })
 }

@@ -1,33 +1,53 @@
 import { Button } from '@/components/Button'
 import { ScreenBase, ScrollContainer } from '@/components/ScreenBase'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import styled from 'styled-components/native'
 import { color } from '@/theme/color'
 import { spacing } from '@/theme/spacing'
 import { ButtonType } from '@/utils/types'
-import { InputField } from '@/components/InputField'
+import { router, useLocalSearchParams } from 'expo-router'
+import { useFirebase } from '@/firebase/hooks/useFirebase'
+import { InputDate } from '@/components/InputDate'
+import { Title } from '@/components/Text'
+import { Separator } from '@/components/Separator'
+import { showAlert } from '@/utils/navigationUtils'
+import { LoadingIndicator } from '@/components/LoadingIndicator'
+import { PicturePicker } from '@/components/PicturePicker'
 
 export default function EditEventDetails() {
+  const { requestState, events, updateEvent } = useFirebase()
+  const { id } = useLocalSearchParams<{ id: string }>()
+  const findEvent = () => {
+    const event = events.find((event) => event.id === id)
+    return event
+  }
+  const edit = findEvent()
   const [event, setEvent] = useState({
-    title: 'Event Title',
-    image: 'https://picsum.photos/200/300',
-    description: 'Event Description',
+    id: edit?.id || '',
+    title: edit?.title || '',
+    image: edit?.image || '',
+    description: edit?.description || '',
     dates: {
-      startDate: '2021-10-10',
-      endDate: '2021-10-11',
+      startDate: edit?.dates.startDate || '',
+      endDate: edit?.dates.endDate || '',
     },
     location: {
-      city: 'City',
-      address: 'Address',
+      city: edit?.location.city || '',
+      address: edit?.location.address || '',
     },
-    eventType: 'Type of Event',
-    eventState: 'State',
-    organizer: 'Organizer',
-    userAdditions: {},
+    eventType: edit?.eventType || '',
+    eventState: edit?.eventState || '',
+    organizer: edit?.organizer || '',
+    userAdditions: edit?.userAdditions || [],
   })
 
-  const handleSave = () => {
-    // Save the event here
+  const handleSave = async () => {
+    try {
+      await updateEvent(id!, event)
+      router.push('../')
+    } catch (error) {
+      showAlert(String(error))
+    }
   }
 
   const handleChange = (field: keyof Event | string, value: string) => {
@@ -36,34 +56,34 @@ export default function EditEventDetails() {
       [field]: value,
     }))
   }
+  const editStartDate = useCallback((value: string) => {
+    setEvent((prevState) => ({
+      ...prevState,
+      dates: { ...prevState.dates, startDate: value },
+    }))
+  }, [])
+  const editEndDate = useCallback((value: string) => {
+    setEvent((prevState) => ({
+      ...prevState,
+      dates: { ...prevState.dates, endDate: value },
+    }))
+  }, [])
 
   return (
     <ScreenBase backgroundColor={color.lightGray}>
       <ScrollContainer backgroundColor={'transparent'}>
-        <InputField
+        <Separator size={5} />
+        <Title>Edit Event.</Title>
+        <Separator size={5} />
+        <EventInput
           placeholder="Title"
           value={event.title}
           onChangeText={(text: string) => handleChange('title', text)}
         />
         <EventInput
-          placeholder="Image URL"
-          value={event.image}
-          onChangeText={(text: string) => handleChange('image', text)}
-        />
-        <EventInput
           placeholder="Description"
           value={event.description}
           onChangeText={(text: string) => handleChange('description', text)}
-        />
-        <EventInput
-          placeholder="Start Date"
-          value={event.dates.startDate}
-          onChangeText={(text: string) => handleChange('dates.startDate', text)}
-        />
-        <EventInput
-          placeholder="End Date"
-          value={event.dates.endDate}
-          onChangeText={(text: string) => handleChange('dates.endDate', text)}
         />
         <EventInput
           placeholder="City"
@@ -90,8 +110,13 @@ export default function EditEventDetails() {
           value={event.organizer}
           onChangeText={(text: string) => handleChange('organizer', text)}
         />
-        <Button label="Save Event" type={ButtonType.textButton} onPress={handleSave} />
+        <InputDate label="Insert new start date" onChange={editStartDate} />
+        <InputDate label="Insert new end date" onChange={editEndDate} />
+
+        <PicturePicker setImage={(image: string) => handleChange('image', image)} />
+        <Button label="Save Event" type={ButtonType.primary} onPress={handleSave} />
       </ScrollContainer>
+      <LoadingIndicator status={requestState} isModal={false} />
     </ScreenBase>
   )
 }

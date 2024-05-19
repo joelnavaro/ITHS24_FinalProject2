@@ -34,14 +34,6 @@ export const buttonTypes = (type: ButtonType) => {
       borderBottomWidth: true,
     }
   }
-  // if (type === ButtonType.complement) {
-  //   return {
-  //     backgroundColor: color.white,
-  //     fontColor: color.darkGrey,
-  //     borderColor: color.white,
-  //     borderBottomWidth: false,
-  //   }
-  // }
   return {
     backgroundColor: color.primary,
     fontColor: color.white,

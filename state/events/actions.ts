@@ -10,7 +10,7 @@ export const fetchEventsAsync = createAsyncThunk('eventsSlice/fetchEventsAsync',
   }
 
   try {
-    const events = await db.doc(rootState.user.uid).collection(eventsCollection).get()
+    const events = await db.doc(rootState.user.uid).collection(eventsCollection).orderBy('id', 'desc').get()
     const tempList: EventType[] = []
     events.forEach((event) => {
       tempList.push(event.data() as EventType)

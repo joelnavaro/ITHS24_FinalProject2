@@ -107,14 +107,3 @@ export const useAuth = () => {
     logOut,
   }
 }
-
-// if (firebaseError.code === 'auth/email-already-in-use') {
-//   console.log('That email address is already in use!')
-// }
-
-// if (firebaseError.code === 'auth/invalid-email') {
-//   console.log('That email address is invalid!')
-// }
-
-//when error in the email
-// [Error: [auth/invalid-credential] The supplied auth credential is malformed or has expired.]

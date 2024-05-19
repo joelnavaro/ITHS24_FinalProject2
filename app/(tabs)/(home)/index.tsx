@@ -6,41 +6,63 @@ import { Separator } from '@/components/Separator'
 import { useAppSelector } from '@/hooks/hooks'
 import { selectCollection } from '@/state/events/eventSlice'
 import { color } from '@/theme/color'
+import { BarMenuState, EventType } from '@/utils/types'
+import { isThisMonth, isThisWeek, isToday } from 'date-fns'
 import { router } from 'expo-router'
 import { useState } from 'react'
 
-const enum MenuState {
-  day = 'day',
-  week = 'week',
-  month = 'month',
-}
-
 export default function Home() {
   const events = useAppSelector(selectCollection)
-  console.log('home events', events.length)
-  const [menuState, setMenuState] = useState(MenuState.day)
+  const [menuState, setMenuState] = useState(BarMenuState.day)
+
+  const filterEvents = (events: EventType[]) => {
+    return events.filter((event) => {
+      const startDate = new Date(Number(event.dates.startDate))
+      const endDate = new Date(Number(event.dates.endDate))
+
+      switch (menuState) {
+        case BarMenuState.day:
+          return isToday(startDate) || isToday(endDate)
+        case BarMenuState.week:
+          return isThisWeek(startDate) || isThisWeek(endDate)
+        case BarMenuState.month:
+          return isThisMonth(startDate) || isThisMonth(endDate)
+        default:
+          return true
+      }
+    })
+  }
+
+  const filteredEvents = filterEvents(events)
+
   return (
     <ScreenBase backgroundColor={color.lightGray}>
       <Separator size={5} />
       <BarCard row backgroundColor={color.white}>
         <BarButton
+          menuState={menuState}
           label="Today"
           onPress={() => {
-            setMenuState(MenuState.day)
+            setMenuState(BarMenuState.day)
           }}
         />
         <BarButton
+          menuState={menuState}
           label="This Week"
           onPress={() => {
-            setMenuState(MenuState.week)
+            setMenuState(BarMenuState.week)
           }}
         />
         <BarButton
+          menuState={menuState}
           label="This Month"
           onPress={() => {
-            setMenuState(MenuState.month)
+            setMenuState(BarMenuState.month)
           }}
         />
+      </BarCard>
+      <EventsList data={filteredEvents} />
+      <BarCard row backgroundColor={color.white}>
         <BarButton
           label="Create Event"
           onPress={() => {
@@ -48,7 +70,6 @@ export default function Home() {
           }}
         />
       </BarCard>
-      <EventsList data={events} />
     </ScreenBase>
   )
 }

@@ -50,3 +50,9 @@ export const initialEventForm: EventType = {
   organizer: '',
   userAdditions: [],
 }
+
+export const enum BarMenuState {
+  day = 'day',
+  week = 'week',
+  month = 'month',
+}

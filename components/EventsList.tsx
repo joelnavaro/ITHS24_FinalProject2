@@ -11,6 +11,7 @@ export const EventsList: FC<{ data: EventType[] }> = ({ data }) => {
       keyExtractor={(event) => event.id}
       renderItem={({ item }) => (
         <EventCard
+          id={item.id}
           title={item.title}
           image={item.image}
           endDate={item.dates.endDate}
