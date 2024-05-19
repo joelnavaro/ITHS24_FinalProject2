@@ -30,7 +30,6 @@ export default function EditProfileModal() {
     lastName: user.lastName,
     profilePicture: '',
   })
-  // console.log('edit usermodal', user)
 
   const saveChanges = async () => {
     try {

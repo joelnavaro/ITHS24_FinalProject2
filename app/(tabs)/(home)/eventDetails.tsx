@@ -82,7 +82,10 @@ export default function EventDetails() {
                 type={ButtonType.primary}
                 icon={IconEnum.edit}
                 onPress={() => {
-                  router.push('/(tabs)/(home)/editEvent')
+                  router.push({
+                    pathname: '/(tabs)/(home)/editEvent',
+                    params: { id: id },
+                  })
                 }}
               />
             </ButtonsContainer>

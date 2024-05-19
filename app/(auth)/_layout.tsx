@@ -9,7 +9,6 @@ import { selectIsAuthenticated } from '@/state/user/userSlice'
 
 export default function AuthLayout() {
   const isAuthenticated = useAppSelector(selectIsAuthenticated)
-  // console.log('in auth', permission)
 
   if (isAuthenticated) {
     return <Redirect href="/(tabs)/(home)" />

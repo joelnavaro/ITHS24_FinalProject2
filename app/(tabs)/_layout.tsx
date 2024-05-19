@@ -26,13 +26,13 @@ export default function TabLayout() {
               ),
           })}
         >
-          <Tabs.Screen name="(aScreen)" />
           <Tabs.Screen
-            name="(home)"
-            // options={{
-            //   href: null,
-            // }}
+            name="(aScreen)"
+            options={{
+              href: null,
+            }}
           />
+          <Tabs.Screen name="(home)" />
           <Tabs.Screen name="(search)" />
           <Tabs.Screen name="(profile)" />
           <Tabs.Screen name="(library)" />

@@ -1,24 +1,27 @@
 import styled from 'styled-components/native'
-import { BodyText } from './Text'
 import { FC } from 'react'
 import { spacing } from '@/theme/spacing'
 import { barButtonTypes } from '@/utils/buttonType'
-import { ButtonType } from '@/utils/types'
+import { BarMenuState, ButtonType } from '@/utils/types'
 import { Icon, IconEnum } from './icons/Icons'
 import { theme } from '@/theme'
+import { color } from '@/theme/color'
 
 export const BarButton: FC<{
+  menuState?: BarMenuState
   label: string
   type?: ButtonType
   icon?: IconEnum
   onPress: () => void
   disabled?: boolean
-}> = ({ label, type = ButtonType.primary, icon, onPress, disabled = false }) => {
-  const { borderColor, backgroundColor, fontColor, bottomLine } = barButtonTypes(disabled ? ButtonType.disable : type)
+}> = ({ menuState, label, type = ButtonType.primary, icon, onPress, disabled = false }) => {
+  const { backgroundColor, fontColor, bottomLine } = barButtonTypes(disabled ? ButtonType.disable : type)
+  const tempLabel = menuState === 'day' ? 'Today' : menuState === 'week' ? 'This Week' : 'This Month'
+  const isMenuState = tempLabel === label
   return (
     <StyledButton
       backgroundColor={backgroundColor}
-      borderColor={borderColor}
+      borderColor={isMenuState ? `${color.darkSlate}` : `${color.champagne}`}
       disabled={disabled}
       borderLine={bottomLine}
       onPress={onPress}

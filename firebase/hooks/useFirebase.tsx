@@ -7,6 +7,7 @@ import { fetchEventsAsync } from '@/state/events/actions'
 import { EventType } from '@/utils/types'
 import { setUserCredentials, updateAuthStatus } from '@/state/user/userSlice'
 import {
+  editEvent,
   putNote,
   removeEvent,
   removeNote,
@@ -111,13 +112,6 @@ export const useFirebase = () => {
     }
   }
 
-  // import firestore from '@react-native-firebase/firestore'
-  // const test = async (firstName?: string, lastName?: string) => {
-  //access the user document
-  //   const adminDoc = firestore().collection(rootCollection).doc(adminId!)
-  //access the event collection in the user document
-  // }
-
   const saveEvent = async (event: EventType) => {
     try {
       dispatch(updateRequestStatus({ status: REQUEST_STATUS.LOADING }))
@@ -152,10 +146,8 @@ export const useFirebase = () => {
         await doc.ref.delete()
         dispatch(removeEvent({ eventId }))
         showAlert('Successfully deleted')
-      } else {
-        console.log('No such document!')
       }
-      dispatch(updateRequestStatus({ status: REQUEST_STATUS.LOADING }))
+      dispatch(updateRequestStatus({ status: REQUEST_STATUS.IDLE }))
     } catch (error) {
       const firebaseError = error as FirebaseErrorType
       dispatch(updateAuthStatus({ status: REQUEST_STATUS.IDLE }))
@@ -165,18 +157,20 @@ export const useFirebase = () => {
 
   const updateEvent = async (eventId: string, event: EventType) => {
     try {
-      const eventDoc = db.doc(`${user.uid}/${eventsCollection}/${eventId}`)
+      dispatch(updateRequestStatus({ status: REQUEST_STATUS.LOADING }))
+      const querySnapshot = await eventCollection.where('id', '==', eventId).get()
 
-      const doc = await eventDoc.get()
-      if (doc.exists) {
-        await eventDoc.update(event)
-        console.log('Document successfully updated!')
-        alert('Successfully updated')
-      } else {
-        console.log('No such document!')
+      if (!querySnapshot.empty) {
+        const doc = querySnapshot.docs[0]
+        await doc.ref.update(event)
+        dispatch(editEvent({ eventId, event }))
+        showAlert('Successfully Updated')
       }
+      dispatch(updateRequestStatus({ status: REQUEST_STATUS.IDLE }))
     } catch (error) {
-      console.error('Error updating document: ', error)
+      const firebaseError = error as FirebaseErrorType
+      dispatch(updateAuthStatus({ status: REQUEST_STATUS.IDLE }))
+      throw new Error(firebaseError.message)
     }
   }
 
