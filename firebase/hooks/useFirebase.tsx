@@ -6,7 +6,13 @@ import { router } from 'expo-router'
 import { fetchEventsAsync } from '@/state/events/actions'
 import { EventType } from '@/utils/types'
 import { setUserCredentials, updateAuthStatus } from '@/state/user/userSlice'
-import { selectCollection, selectRequestState, updateRequestStatus } from '@/state/events/eventSlice'
+import {
+  putNote,
+  removeNote,
+  selectCollection,
+  selectRequestState,
+  updateRequestStatus,
+} from '@/state/events/eventSlice'
 
 export const useFirebase = () => {
   const events = useAppSelector(selectCollection)
@@ -52,16 +58,72 @@ export const useFirebase = () => {
     }
   }
 
+  const deleteNote = async (noteIndex: number, eventId: string) => {
+    try {
+      dispatch(updateRequestStatus({ status: REQUEST_STATUS.LOADING }))
+      const snapshot = await eventCollection.where('id', '==', eventId).get()
+
+      if (!snapshot.empty) {
+        const docId = snapshot.docs[0].id
+        const doc = await eventCollection.doc(docId).get()
+        const userAdditions = doc.data()?.userAdditions || []
+        if (noteIndex >= 0 && noteIndex < userAdditions.length) {
+          userAdditions.splice(noteIndex, 1)
+        }
+        await eventCollection.doc(docId).update({
+          userAdditions: userAdditions,
+        })
+        dispatch(removeNote({ noteIndex, eventId }))
+      }
+      dispatch(updateRequestStatus({ status: REQUEST_STATUS.IDLE }))
+    } catch (error) {
+      console.error('Error deleting note! : ', error)
+      const firebaseError = error as FirebaseErrorType
+      dispatch(updateAuthStatus({ status: REQUEST_STATUS.IDLE }))
+      throw new Error(firebaseError.message)
+    }
+  }
+  const addNote = async (note: string, eventId: string) => {
+    console.log('addNote useFb', note, eventId)
+    try {
+      dispatch(updateRequestStatus({ status: REQUEST_STATUS.LOADING }))
+      const snapshot = await eventCollection.where('id', '==', eventId).get()
+
+      if (!snapshot.empty) {
+        const docId = snapshot.docs[0].id
+        const doc = await eventCollection.doc(docId).get()
+        const userAdditions = doc.data()?.userAdditions || []
+        // Add the new note to the userAdditions array
+        userAdditions.push(note)
+
+        // Update the document with the new array
+        await eventCollection.doc(docId).update({
+          userAdditions: userAdditions,
+        })
+
+        dispatch(putNote({ note, eventId }))
+      }
+      dispatch(updateRequestStatus({ status: REQUEST_STATUS.IDLE }))
+    } catch (error) {
+      console.error('Error adding note! : ', error)
+      const firebaseError = error as FirebaseErrorType
+      dispatch(updateAuthStatus({ status: REQUEST_STATUS.IDLE }))
+      throw new Error(firebaseError.message)
+    }
+  }
+
   // import firestore from '@react-native-firebase/firestore'
   // const test = async (firstName?: string, lastName?: string) => {
+  //access the user document
   //   const adminDoc = firestore().collection(rootCollection).doc(adminId!)
+  //access the event collection in the user document
   // }
 
   const saveEvent = async (event: EventType) => {
     try {
       dispatch(updateRequestStatus({ status: REQUEST_STATUS.LOADING }))
       await eventCollection.add(event)
-      dispatch(updateRequestStatus({ status: REQUEST_STATUS.LOADING }))
+      dispatch(updateRequestStatus({ status: REQUEST_STATUS.IDLE }))
       router.push('../')
     } catch (error) {
       console.error('Error adding document: ', error)
@@ -122,5 +184,7 @@ export const useFirebase = () => {
     deleteEvent,
     updateEvent,
     updateUserCredentials,
+    deleteNote,
+    addNote,
   }
 }

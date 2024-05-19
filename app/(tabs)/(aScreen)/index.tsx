@@ -1,6 +1,8 @@
 import { BaseCard } from '@/components/BaseCard'
+import { NotesContainer } from '@/components/NotesContainer'
 import { ScreenBase } from '@/components/ScreenBase'
 import { Separator } from '@/components/Separator'
+import { UserNotes } from '@/components/UserNotes'
 import { color } from '@/theme/color'
 import { spacing } from '@/theme/spacing'
 import { useEffect } from 'react'

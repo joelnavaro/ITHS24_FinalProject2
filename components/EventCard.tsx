@@ -13,15 +13,19 @@ import { IconEnum } from './icons/Icons'
 import { formatDate } from '@/utils/dateUtils'
 
 export const EventCard: FC<{
+  id: string
   title: string
   image: string
   endDate: string
   typeOfEvent: string
   eventState: string
   location: string
-}> = ({ title, image, endDate, typeOfEvent, eventState, location }) => {
+}> = ({ id, title, image, endDate, typeOfEvent, eventState, location }) => {
   const navigate = () => {
-    router.push('/(tabs)/eventDetails')
+    router.push({
+      pathname: '/(tabs)/eventDetails',
+      params: { id: id },
+    })
   }
   return (
     <Container backgroundColor={'transparent'}>
