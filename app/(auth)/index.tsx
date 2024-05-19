@@ -18,7 +18,7 @@ export default function WelcomePage() {
         </CenteredTitle>
         <Separator size={20} />
         <BodyText bold color={color.white} size={spacing.xlarge}>
-          The best app to start organizing your gigs.
+          The best app to start organizing your activities.
         </BodyText>
       </BaseCard>
       <Separator size={100} />
