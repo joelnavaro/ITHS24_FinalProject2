@@ -17,7 +17,6 @@ const enum MenuState {
 
 export default function Home() {
   const events = useAppSelector(selectCollection)
-  console.log('home events', events.length)
   const [menuState, setMenuState] = useState(MenuState.day)
   return (
     <ScreenBase backgroundColor={color.lightGray}>
@@ -41,6 +40,9 @@ export default function Home() {
             setMenuState(MenuState.month)
           }}
         />
+      </BarCard>
+      <EventsList data={events} />
+      <BarCard row backgroundColor={color.white}>
         <BarButton
           label="Create Event"
           onPress={() => {
@@ -48,7 +50,6 @@ export default function Home() {
           }}
         />
       </BarCard>
-      <EventsList data={events} />
     </ScreenBase>
   )
 }

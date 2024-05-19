@@ -6,34 +6,22 @@ export const InputDate: FC<{
   label: string
   onChange: (value: string) => void
 }> = ({ label, onChange }) => {
-  const [day, setDay] = useState('')
-  const [month, setMonth] = useState('')
-  const [year, setYear] = useState('')
-  const [isFilled, setIsFilled] = useState(false)
+  const [dateTest, setDateTest] = useState({ day: '', month: '', year: '' })
 
-  const handleChangeDay = (text: string) => {
-    if (text.length <= 2) setDay(text)
-  }
-
-  const handleChangeMonth = (text: string) => {
-    if (text.length <= 2) setMonth(text)
-  }
-
-  const handleChangeYear = (text: string) => {
-    if (text.length <= 4) setYear(text)
-  }
-
-  const memoizedOnChange = useCallback(onChange, [])
+  const handleInputChange = useCallback((field: string, value: string) => {
+    setDateTest((prevState) => ({
+      ...prevState,
+      [field]: value,
+    }))
+  }, [])
 
   useEffect(() => {
-    if (day && month && year) {
+    const { day, month, year } = dateTest
+    if (day && month && year && year.length === 4) {
       const date = new Date(Number(year), Number(month) - 1, Number(day))
-      memoizedOnChange(date.getTime().toString())
-    } else {
-      memoizedOnChange('')
+      onChange(date.getTime().toString())
     }
-    setIsFilled(!!(day || month || year))
-  }, [day, month, year, memoizedOnChange])
+  }, [dateTest, onChange])
 
   return (
     <Container>
@@ -42,23 +30,23 @@ export const InputDate: FC<{
         <InputField
           placeholder="Day"
           keyboardType="numeric"
-          value={day}
-          onChangeText={handleChangeDay}
-          isFilled={isFilled}
+          value={dateTest.day}
+          onChangeText={(value: string) => handleInputChange('day', value)}
+          maxLength={2}
         />
         <InputField
           placeholder="Month"
           keyboardType="numeric"
-          value={month}
-          onChangeText={handleChangeMonth}
-          isFilled={isFilled}
+          value={dateTest.month}
+          onChangeText={(value: string) => handleInputChange('month', value)}
+          maxLength={2}
         />
         <InputField
           placeholder="Year"
           keyboardType="numeric"
-          value={year}
-          onChangeText={handleChangeYear}
-          isFilled={isFilled}
+          value={dateTest.year}
+          onChangeText={(value: string) => handleInputChange('year', value)}
+          maxLength={4}
         />
       </InputRow>
     </Container>
@@ -79,8 +67,8 @@ const InputRow = styled.View`
   justify-content: space-between;
 `
 
-const InputField = styled.TextInput<{ isFilled: boolean }>`
-  border: 1px solid ${(props: { isFilled: boolean }) => (props.isFilled ? `${color.darkSlate}` : '#ccc')};
+const InputField = styled.TextInput`
+  border: 1px solid ${color.darkSlate};
   padding: 8px;
   width: 30%;
   text-align: center;

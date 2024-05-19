@@ -33,12 +33,7 @@ export default function TabLayout() {
             //   href: null,
             // }}
           />
-          <Tabs.Screen
-            name="(search)"
-            // options={{
-            //   href: null,
-            // }}
-          />
+          <Tabs.Screen name="(search)" />
           <Tabs.Screen name="(profile)" />
           <Tabs.Screen name="(library)" />
         </Tabs>

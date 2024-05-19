@@ -23,6 +23,9 @@ export const eventSlice = createSlice({
     addEvent: (state, { payload }: PayloadAction<EventType>) => {
       state.eventsCollection.push(payload)
     },
+    removeEvent: (state, { payload }: PayloadAction<{ eventId: string }>) => {
+      state.eventsCollection = state.eventsCollection.filter((event) => event.id !== payload.eventId)
+    },
     removeNote: (state, { payload }: PayloadAction<{ noteIndex: number; eventId: string }>) => {
       state.eventsCollection.find((event) => event.id === payload.eventId)?.userAdditions.splice(payload.noteIndex, 1)
     },
@@ -58,6 +61,6 @@ export const eventSlice = createSlice({
 export const selectCollection = (state: RootState) => state.events.eventsCollection
 export const selectRequestState = (state: RootState) => state.events.requestStatus
 
-export const { addEvent, updateRequestStatus, removeNote, putNote } = eventSlice.actions
+export const { addEvent, removeEvent, updateRequestStatus, removeNote, putNote } = eventSlice.actions
 
 export default eventSlice.reducer

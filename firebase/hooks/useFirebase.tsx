@@ -8,11 +8,13 @@ import { EventType } from '@/utils/types'
 import { setUserCredentials, updateAuthStatus } from '@/state/user/userSlice'
 import {
   putNote,
+  removeEvent,
   removeNote,
   selectCollection,
   selectRequestState,
   updateRequestStatus,
 } from '@/state/events/eventSlice'
+import { showAlert } from '@/utils/navigationUtils'
 
 export const useFirebase = () => {
   const events = useAppSelector(selectCollection)
@@ -93,10 +95,7 @@ export const useFirebase = () => {
         const docId = snapshot.docs[0].id
         const doc = await eventCollection.doc(docId).get()
         const userAdditions = doc.data()?.userAdditions || []
-        // Add the new note to the userAdditions array
         userAdditions.push(note)
-
-        // Update the document with the new array
         await eventCollection.doc(docId).update({
           userAdditions: userAdditions,
         })
@@ -126,12 +125,12 @@ export const useFirebase = () => {
       dispatch(updateRequestStatus({ status: REQUEST_STATUS.IDLE }))
       router.push('../')
     } catch (error) {
-      console.error('Error adding document: ', error)
       const firebaseError = error as FirebaseErrorType
       dispatch(updateAuthStatus({ status: REQUEST_STATUS.IDLE }))
       throw new Error(firebaseError.message)
     }
   }
+
   const getEvents = async () => {
     try {
       const snapshot = await eventCollection.get()
@@ -142,20 +141,25 @@ export const useFirebase = () => {
       console.error('Error getting documents: ', error)
     }
   }
+
   const deleteEvent = async (eventId: string) => {
     try {
-      const eventDoc = db.doc(`${user.uid}/${eventsCollection}/${eventId}`)
+      dispatch(updateRequestStatus({ status: REQUEST_STATUS.LOADING }))
+      const querySnapshot = await eventCollection.where('id', '==', eventId).get()
 
-      const doc = await eventDoc.get()
-      if (doc.exists) {
-        await eventDoc.delete()
-        console.log('Document successfully deleted!')
-        alert('Successfully deleted')
+      if (!querySnapshot.empty) {
+        const doc = querySnapshot.docs[0]
+        await doc.ref.delete()
+        dispatch(removeEvent({ eventId }))
+        showAlert('Successfully deleted')
       } else {
         console.log('No such document!')
       }
+      dispatch(updateRequestStatus({ status: REQUEST_STATUS.LOADING }))
     } catch (error) {
-      console.error('Error deleting document: ', error)
+      const firebaseError = error as FirebaseErrorType
+      dispatch(updateAuthStatus({ status: REQUEST_STATUS.IDLE }))
+      throw new Error(firebaseError.message)
     }
   }
 

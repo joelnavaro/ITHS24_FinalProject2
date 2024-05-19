@@ -13,7 +13,7 @@ import { addEvent } from '@/state/events/eventSlice'
 import { color } from '@/theme/color'
 import { spacing } from '@/theme/spacing'
 import { EventType } from '@/utils/types'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import styled from 'styled-components/native'
 import { PicturePicker } from '@/components/PicturePicker'
 import { Alert } from 'react-native'
@@ -39,8 +39,6 @@ export default function CreateEvent() {
     organizer: '',
     userAdditions: [],
   })
-  //proffesional Event or personal event
-  //public or private
   const eventTypeList = ['Workshop', 'Seminar', 'Meetup', 'Concert', 'Festival', 'Competition', 'Course']
   const eventStateList = ['Active', 'Inactive', 'Completed']
 
@@ -73,6 +71,18 @@ export default function CreateEvent() {
       console.log('error', error)
     }
   }
+  const handleStartDate = useCallback((value: string) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      dates: { ...prevState.dates, startDate: value },
+    }))
+  }, [])
+  const handleEndDate = useCallback((value: string) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      dates: { ...prevState.dates, endDate: value },
+    }))
+  }, [])
 
   return (
     <ScreenBase backgroundColor={color.lightGray}>
@@ -120,27 +130,9 @@ export default function CreateEvent() {
             onChangeText={(value) => setFormState({ ...formState, organizer: value })}
           />
           <Separator size={1} color={color.black} />
-          <InputDate
-            label={'Start Date'}
-            // value={formState.dates.startDate}
-            onChange={(value: string) => {
-              setFormState({
-                ...formState,
-                dates: { ...formState.dates, startDate: value },
-              })
-            }}
-          />
+          <InputDate label="Start Date" onChange={handleStartDate} />
 
-          <InputDate
-            label={'End Date'}
-            // value={formState.dates.startDate}
-            onChange={(value: string) =>
-              setFormState({
-                ...formState,
-                dates: { ...formState.dates, endDate: value },
-              })
-            }
-          />
+          <InputDate label="End Date" onChange={handleEndDate} />
 
           <Separator size={1} color={color.black} />
           <StyledCard backgroundColor={color.white}>

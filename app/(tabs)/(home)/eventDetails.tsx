@@ -3,17 +3,19 @@ import { Button, ButtonsContainer } from '@/components/Button'
 import { NotesContainer } from '@/components/NotesContainer'
 import { ScreenBase, ScrollContainer } from '@/components/ScreenBase'
 import { BodyText, Title } from '@/components/Text'
+import { IconEnum } from '@/components/icons/Icons'
 import { useFirebase } from '@/firebase/hooks/useFirebase'
 import { color } from '@/theme/color'
 import { spacing } from '@/theme/spacing'
 import { formatDate } from '@/utils/dateUtils'
+import { showAlert } from '@/utils/navigationUtils'
 import { ButtonType } from '@/utils/types'
 import { router, useLocalSearchParams } from 'expo-router'
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
 
 export default function EventDetails() {
-  const { events, deleteNote, addNote } = useFirebase()
+  const { events, deleteNote, addNote, deleteEvent } = useFirebase()
   const { id } = useLocalSearchParams<{ id: string }>()
   const [currentNote, setCurrentNote] = useState('')
   const [isValid, setIsValid] = useState(true)
@@ -31,6 +33,14 @@ export default function EventDetails() {
       await addNote(currentNote, id!)
       setCurrentNote('')
       setIsValid(true)
+    }
+  }
+  const handleDeleteEvent = async () => {
+    try {
+      await deleteEvent(id!)
+      router.push('/(tabs)/(home)/')
+    } catch (error) {
+      showAlert(String(error))
     }
   }
   return (
@@ -64,13 +74,13 @@ export default function EventDetails() {
               <Button
                 label="Delete Event"
                 type={ButtonType.secondary}
-                onPress={() => {
-                  // router.push('/(tabs)/(home)/editEvent')
-                }}
+                icon={IconEnum.close}
+                onPress={handleDeleteEvent}
               />
               <Button
                 label="Edit Event"
                 type={ButtonType.primary}
+                icon={IconEnum.edit}
                 onPress={() => {
                   router.push('/(tabs)/(home)/editEvent')
                 }}
